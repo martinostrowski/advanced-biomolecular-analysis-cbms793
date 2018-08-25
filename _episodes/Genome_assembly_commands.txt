@@ -1,0 +1,72 @@
+---
+source: Rmd
+title: "Genome Assembly Workflow"
+teaching: 10
+exercises: 40
+questions:
+- "How to quality control raw sequence files for genome assembly"
+objectives:
+- "Explain what they key points are in the genome assembly workflow."
+- "Demonstrate how to include pieces of code, figures, and challenges."
+keypoints:
+- "It shouldn't be difficult"
+---
+
+
+####genome assembly, illumina PE
+
+### 1. trim R1 and R2 using trimmomatic, edit the input and output names to something rational
+
+~~~
+java -jar /usr/local/bioinf/Trimmomatic-0-3.36/trimmomatic-0.36.jar PE ***_R1.fastq.gz  ***_R2.fastq.gz name_fp.fq.gz name_fu.fq.gz name_rp.fq.gz name_1_ru.fq.gz ILLUMINACLIP:/usr/local/bioinf/Trimmomatic-0-3.36/adapters/NexteraPE-PE.fa:2:30:10;
+~~~
+
+### 2. spades assembly (edit the names)
+
+/usr/local/bioinf/spades/spades/bin/spades.py --careful --pe1-1 AM14-SynPH4-1509.fp.fq --pe1-2 AM14-SynPH4-1509.rp.fq --s1 AM14-SynPH4-1509.fu.fq --s2 AM14-SynPH4-1509.ru.fq -t 12 -o SynPH4-1509_test1
+
+###2.5. get summary of results using quast
+
+quast.py contigs.fa
+
+### 3. read mapping, prepare for binning and coverage assessment
+
+bowtie2-build scaffolds.fasta scaffolds
+
+bowtie2 -x scaffolds -1 ../AM14-SynPH4-1509.fp.fq -2 ../AM14-SynPH4-1509.rp.fq -U ../AM14-SynPH4-1509.fu.fq,../AM14-SynPH4-1509.ru.fq -S test1.sam
+bowtie2 -x scaffolds -1 ../AM3-SynHBA-1120.fp.fq -2 ../AM3-SynHBA-1120.rp.fq -U ../AM3-SynHBA-1120.fu.fq,../AM3-SynHBA-1120.ru.fq -S test1.sam
+
+### convert sam to bam file for MetaBat
+
+samtools view -bS test1.sam | samtools sort - test1_sorted
+
+### 4. MetaBat binning
+
+~/metabat/runMetaBat.sh scaffolds.fasta test1_sorted.bam
+
+### mv bins to bins directory !!
+
+mkdir bins
+
+mv *fa bins/
+
+### 5. analyse bins using CheckM
+
+checkm lineage_wf -t 8 -x fa bins checkm_out
+
+### 6. Prokka rough annotation of selected bins (we will refine this after we close the assembly)
+## shorten name of fasta headers for PRokka using sed find and replace pattern
+
+sed -i 's/_length/ length/' SynPH4-1509_v1.fa
+
+prokka -outdir SynPH4-1509_v1 SynPH4-1509_v1.fa -force
+
+### blast against known genomes
+
+blastn -db /home/db/blastdb/cyanorak_2015_cds.fna -outfmt='6 qseqid sseqid pid	ent length mismatch gapopen qlen qstart qend sstart send evalue bitscore' -max_target_seqs  1 -best_hit_overhang 0.1 -ungapped -dust no  -num_threads=18 -parse_deflines -query PROKKA_07252016.ffn -out SynPH4-1509_v_crak_nt.out;
+
+
+
+
+
+

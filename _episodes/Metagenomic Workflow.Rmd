@@ -1,0 +1,118 @@
+---
+title: "Metagenomic Workflow"
+output: html_workflow
+---
+
+Build a reference gene set for your gene of interest:
+
+***GENES***
+SAR11_1068
+Syn_CC9311_0634
+***GENES***
+
+Make blast database
+```{r}
+makeblastdb -in SAR11_1068 -dbtype nucl
+makeblastdb -in Syn_CC9311_0634 -dbtype nucl
+```
+
+Make file for blastmapping.sh
+```{r}
+#!/bin/bash
+#PBS -N NRS array
+#PBS -S /bin/bash
+#PBS -t 1-15760
+#PBS -l nodes=1:ppn=12:slave
+#PBS -l walltime=2:00:00
+#PBS -l mem=8000m
+#PBS -d /disks/sheldon/data/martin/freads
+#PBS -e /home/geraldine/${PBS_JOBID}.err
+#PBS -o /home/geraldine/${PBS_JOBID}.out
+
+
+cd ${PBS_O_WORKDIR}
+echo "Job ID is ${PBS_JOBID}"
+echo "Job Array ID is ${PBS_ARRAYID}"
+echo "Timestamp is $(date +%F_%T)"
+echo "Directory is $(pwd)"
+echo "Running on host $(hostname)"
+echo "Working directory is ${PBS_O_WORKDIR}"
+echo "Job has the following nodes/cores:"
+cat ${PBS_NODEFILE}
+
+PARAMETERS=$(awk -v line=${PBS_ARRAYID} '{if (NR == line) { print $0; };}' ${PBS_O_WORKDIR}/mm.conf)
+
+date +%F_%T
+echo "file working on is $PARAMETERS"
+/usr/local/bin/blastn -db /home/geraldine/SAR11_1068 -outfmt='6 qseqid sseqid pident length mismatch gapopen qlen qstart qend sstart send evalue bitscore' -max_target_seqs 1 -best_hit_overhang 0.1 -num_threads=6 -query $PARAMETERS -out $PARAMETERS.sar11_1068.out
+
+date +%F_%T
+```
+
+Run blast mapping
+```{r}
+qsub blastmapping.sh
+*qstat to see progress/queue*
+*qdel 18[].headnote to delete*
+```
+
+Filter results (use a tree to work out a generic % cutoff)
+```{r}
+for i in *.out; do sort -u -t$'\t' -k1,1 $i > $i.u; done
+*creates new .u file - concatenate into one*
+cat *.u > concat.KAI.out
+sed 's/;/  /' concat.KAI.out > concat.KAI.out.t
+**type it out and press Ctrl-V before pressing, semi colon not colon.
+```
+
+scp geraldine@sheldon.science.mq.edu.au:/home/geraldine/IMCC9063/concat.G3.out.t /Users/geraldinesullivan/Desktop/SBPs
+
+Create a gene abundance table (in R)
+```{r}
+headers<-c("site", "qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qlen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
+colnames(totalkai)<-headers
+
+barplot(factor(KAI$Voyage), factor(KAI$SBP), xlab="Voyage", ylab="SBP", main="KAI Expeditions - SAR11_HTCC1062 Abundance Table", col=1:34)
+```
+
+Hit table
+```{r}
+attach(totalkai)
+table1<-as.matrix(table(site, sseqid))
+table1
+```
+
+Abundance Line Plot
+```{r}
+plot(table1[,1], type="l", ylim=c(0,1300), ylab="Gene Frequency", xlab="Site")
+for (i in 1:ncol(table1)){lines(table1[,i], col=cols[i])}
+SAR11HTCCcols<-c("green", "aquamarine", "blue", "blue4", "blueviolet", "brown4", "burlywood3", "cadetblue", "cyan", "chartreuse2", "chocolate", "green4", "cornflowerblue", "darkgoldenrod", "darksalmon", "darkolivegreen3", "darkorchid3", "darkgreen", "deepskyblue4", "dimgrey", "forestgreen", "gray20", "gold", "darkmagenta", "hotpink", "lightgreen", "red", "lightpink3", "honeydew3", "lightblue", "lightblue4", "lightgoldenrod", "mediumpurple1", "greenyellow")
+SAR11_0147 SAR11_0201 SAR11_0267 SAR11_0268 SAR11_0271 SAR11_0371 SAR11_0655
+SAR11_0658 SAR11_0659 SAR11_0769 SAR11_0772 SAR11_0797 SAR11_0798 SAR11_0806 
+SAR11_0807 SAR11_0812 SAR11_0850 SAR11_0905 SAR11_0953 SAR11_0957 SAR11_1176 
+SAR11_1210 SAR11_1236 SAR11_1238 SAR11_1298 SAR11_1302 SAR11_1336 SAR11_1337 
+SAR11_1346 SAR11_1351 SAR11_1352 SAR11_1357 SAR11_1358 SAR11_1361
+*col=as.numeric(i))} for random colours
+```
+
+Barplot - run simultaneously
+```{r}
+barplot(table(sseqid), las=2, main="SAR11_HTCC1062 Gene Frequency", ylab="Frequency", xlab="", cex.names=0.6, col=SAR11HTCCcols, yaxt="n")
+title(xlab="Gene", line=4, cex.names=0.6)
+axis(2, cex.axis=0.8, las=1)
+```
+
+
+Ecological statistics
+e.g. ordination/mvabund
+```{r}
+
+```
+barplot(table(sseqid), las=2, main="SAR11_HTCC1062 Gene Frequency", ylab="Frequency", xlab="Gene", cex.names=0.6)
+
+Comparison with environmental metadata to define 'realised niche' of the gene
+```{r}
+
+```
+
+MINE, network analysis
