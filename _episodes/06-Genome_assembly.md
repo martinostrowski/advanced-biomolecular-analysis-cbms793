@@ -16,7 +16,11 @@ keypoints:
 
 ## Metagenome assembly, illumina Paired end sequences
 
-In your ~/metagenome directory you will find two, or more, sequence files `.fastq.gz` in *fastq* format
+In your directory you will find two, or more, sequence files `.fq.gz` in *fastq* format. We are going
+to discuss what is in each of these files, begin to understand how they are formatted and explore different ways to quality check them.
+
+The following notes are not intended to be a complete workflow. Where necessary you will have to fill the gaps `xxx` using
+relevant filenames and tools you have already learned, or by doing some research on the web.
 
 > ## Questions:
 >
@@ -26,36 +30,68 @@ In your ~/metagenome directory you will find two, or more, sequence files `.fast
 > {: .language-bash}
 >
 > > ## Solution
-> >
+> > ls -la
 > >
 > > ~~~
+> > ls -la
 > >
+> >  gunzip *
+> >
+> >  less xxx
+> >
+> > fastqc xxx
 > > ~~~
 > > {: .output}
 > {: .solution}
 {: .challenge}
 
 
-> ## Indentation of code within a for loop
-> Note that it is common practice to indent the line(s) of code within a for loop.
-> The only purpose is to make the code easier to read -- it is not required for the loop to run.
-{: .callout}
 
+Explore the fastqc output
 
+> ## Questions:
+>
+> How many sequences are in your files?
+>
+> How does the quality profile of the R1 and R2 reads compare?
+>
+> Do your sequences need to be trimmed because the quality issues or leftover adaptor sequences?
+>
+> What options do you have for viewing the output of the fastqc analyses?
+>
+{: .challenge}
+
+If your sequences requires filtering we are going to use the program trimmomatic using the following code
 1. trim R1 and R2 using trimmomatic, edit the input and output names to something rational
 
 ~~~
-java -jar /usr/local/bioinf/Trimmomatic-0-3.36/trimmomatic-0.36.jar PE ***_R1.fastq.gz  ***_R2.fastq.gz name_fp.fq.gz name_fu.fq.gz name_rp.fq.gz name_1_ru.fq.gz ILLUMINACLIP:/usr/local/bioinf/Trimmomatic-0-3.36/adapters/NexteraPE-PE.fa:2:30:10;
+java -jar /usr/local/Trimmomatic-0.38/trimmomatic-0.38.jar PE -threads 4 YON20160503d0_R1_001.fq.gz YON20160503d0_R2_001.fq.gz -baseout mySamplefiltered.fq.gz ILLUMINACLIP:/usr/local/Trimmomatic-0.38/adapters/NexteraPE-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 ~~~
 {: .language-bash}
 
+> ## Questions:
+>
+> How does the quantity and quality of the sequences in your filtered files compare to your raw sequence files?
+>
+{: .challenge}
 
-2. spades assembly (edit the names)
+Next, and final, task for the day is to start the metagenome assembly using a popular assembly program (spades or megahit)
+
+It is likely that this will take sometime so we will need to setup a special terminal session that will not be interrupted when you log out.
+We will use the program screen and give this session a name
+
+2. Join the two unpaired reads files and start the spades assembly (edit the names)
 
 ~~~
-/usr/local/bioinf/spades/spades/bin/spades.py --careful --pe1-1 AM14-SynPH4-1509.fp.fq --pe1-2 AM14-SynPH4-1509.rp.fq --s1 AM14-SynPH4-1509.fu.fq --s2 AM14-SynPH4-1509.ru.fq -t 12 -o SynPH4-1509_test1
+screen -S Assembly
+
+cat mySamplefiltered_*U.fq > mySamplefiltered_12U.fq
+
+/usr/local/spades/SPAdes-3.12.0-Linux/bin/spades.py --meta -1 mySamplefiltered_1P.fq -2 mySamplefiltered_2P.fq -s mySamplefiltered_12U.fq -t 16 -o assembly
 ~~~
 {: .language-bash}
+
+##That is all for this week
 
 Produce a summary of results using quast
 
@@ -92,12 +128,11 @@ quast.py contigs.fa
 ~~~
 bowtie2-build scaffolds.fasta scaffolds
 
-bowtie2 -x scaffolds -1 ../AM14-SynPH4-1509.fp.fq -2 ../AM14-SynPH4-1509.rp.fq -U ../AM14-SynPH4-1509.fu.fq,../AM14-SynPH4-1509.ru.fq -S test1.sam
-bowtie2 -x scaffolds -1 ../AM3-SynHBA-1120.fp.fq -2 ../AM3-SynHBA-1120.rp.fq -U ../AM3-SynHBA-1120.fu.fq,../AM3-SynHBA-1120.ru.fq -S test1.sam
+bowtie2 -x scaffolds -1 ../mySamplefiltered_1P.fq -2 ../AmySamplefiltered_1P.fq -U ../mySamplefiltered_12U.fq -S test1.sam
 ~~~
 {: .language-bash}
 
-convert sam to bam file for MetaBat
+convert sam to bam file for MetaBat # this needs to be fixed
 
 ~~~
 samtools view -bS test1.sam | samtools sort - test1_sorted
@@ -144,12 +179,6 @@ prokka -outdir SynPH4-1509_v1 SynPH4-1509_v1.fa -force
 ~~~
 {: .language-bash}
 
-
-blast against known genomes
-~~~
-blastn -db /home/db/blastdb/cyanorak_2015_cds.fna -outfmt='6 qseqid sseqid pid	ent length mismatch gapopen qlen qstart qend sstart send evalue bitscore' -max_target_seqs  1 -best_hit_overhang 0.1 -ungapped -dust no  -num_threads=18 -parse_deflines -query PROKKA_07252016.ffn -out SynPH4-1509_v_crak_nt.out;
-~~~
-{: .language-bash}
 
 
 

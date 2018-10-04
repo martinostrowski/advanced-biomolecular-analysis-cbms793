@@ -4,9 +4,16 @@ root: .  # Is the only page that don't follow the partner /:path/index.html
 permalink: index.html  # Is the only page that don't follow the partner /:path/index.html
 ---
 
+CBMS793 markdown-formatted tutorials for this course have converged on the format and philosophy of the [Carpentries](https://software-carpentry.org). As of 2018 the Advanced Biomolecular Analysis tutorials have been merged into the Carpentries lesson templates and we acknowledge the many contributors that have refined and curated the  templates that render our markdown tutorials as lesson web pages. In recognition of the Carpentries and the importance of **Reproducible Research** and to improve the **core skills** component of this course an introduction to GitHub has been incorporated into the practical for week 8. The format of these lesson templates should become familiar enough that you will be comfortable, and capable, of working through some of the material outside of class.
+
+Several SWCarpentry episodes covering the basics of bash and Github are embedded in the class lessons and a very small number of episodes are set as homework.
+
+
 > ## Prerequisites
 >
-> Please complete the setup sections [introduction to shell]() and [logging onto your account on the server]() *before* coming to class
+> Please complete the setup sections [introduction to shell](02-intro/index.html) and [logging onto your account on the server](02-intro/index.html)
+>
+> This includes everything up to the Genome Assembly Workflow, which is where we will start the first session on Genomics
 >
 > There will be a toolbox session scheduled to troubleshoot any issues during the preceding week
 >
@@ -35,59 +42,17 @@ permalink: index.html  # Is the only page that don't follow the partner /:path/i
   <div class="row">
     <div class="col-md-4">
       <h4 id="shell-windows">Windows</h4>
-      <a href="https://www.youtube.com/watch?v=339AEqk9c-8">Video Tutorial</a>
+
       <ol>
-        <li>Download the Git for Windows <a href="https://git-for-windows.github.io/">installer</a>.</li>
-        <li>Run the installer and follow the steps bellow:
+        <li>Download the mobaxterm for Windows <a href="https://mobaxterm.mobatek.net">installer</a>.</li>
+        <li>Run the installer and follow the instructions
           <ol>
-            {% comment %} Git 2.8.2 Setup {% endcomment %}
-            {% comment %} Information {% endcomment %}
-            <li>Click on "Next".</li>
-            {% comment %} Select Components {% endcomment %}
-            <li>Click on "Next".</li>
-            {% comment %} Adjusting your PATH environment {% endcomment %}
-            <li>
-              <strong>
-                Keep "Use Git from the Windows Command Prompt" selected and click on "Next".
-              </strong>
-                If you forgot to do this programs that you need for the workshop will not work properly.
-                If this happens rerun the installer and select the appropriate option.
-            </li>
-            {% comment %} Choosing the SSH executable {% endcomment %}
-            <li>Click on "Next".</li>
-            {% comment %} Configuring the line ending conversions {% endcomment %}
-            <li>
-              <strong>
-                Keep "Checkout Windows-style, commit Unix-style line endings" selected and click on "Next".
-              </strong>
-            </li>
-            {% comment %} Configuring the terminal emulator to use with Git Bash {% endcomment %}
-            <li>
-              <strong>
-                Keep "Use Windows' default console window" selected and click on "Next".
-              </strong>
-            </li>
-            {% comment %} Configuring experimental performance tweaks {% endcomment %}
-            <li>Click on "Install".</li>
-            {% comment %} Installing {% endcomment %}
-            {% comment %} Completing the Git Setup Wizard {% endcomment %}
-            <li>Click on "Finish".</li>
+
           </ol>
         </li>
-        <li>
-          If your "HOME" environment variable is not set (or you don't know what this is):
-          <ol>
-            <li>Open command prompt (Open Start Menu then type <code>cmd</code> and press [Enter])</li>
-            <li>
-              Type the following line into the command prompt window exactly as shown:
-              <p><code>setx HOME "%USERPROFILE%"</code></p>
-            </li>
-            <li>Press [Enter], you should see <code>SUCCESS: Specified value was saved.</code></li>
-            <li>Quit command prompt by typing <code>exit</code> then pressing [Enter]</li>
-          </ol>
-        </li>
+
       </ol>
-      <p>This will provide you with both Git and Bash in the Git Bash program.</p>
+      <p>This will provide you with the Mobaxterm program that will allow you to connect to the server and transfer files.</p>
     </div>
     <div class="col-md-4">
       <h4 id="shell-macosx">macOS</h4>
@@ -112,7 +77,7 @@ permalink: index.html  # Is the only page that don't follow the partner /:path/i
       </p>
     </div>
   </div>
-</div> {% comment %} End of 'shell' section. {% endcomment %}
+
 
 <div id="git"> {% comment %} Start of 'Git' section. GitHub browser compatability
            is given at https://help.github.com/articles/supported-browsers/{% endcomment %}
@@ -140,8 +105,8 @@ permalink: index.html  # Is the only page that don't follow the partner /:path/i
     <div class="col-md-4">
       <h4 id="git-windows">Windows</h4>
       <p>
-        Git should be installed on your computer as part of your Bash
-        install (described above).
+        Git may be installed on your computer as part of a Bash
+        install (not tested yet).
       </p>
     </div>
     <div class="col-md-4">

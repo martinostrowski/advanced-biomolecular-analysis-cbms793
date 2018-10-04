@@ -24,64 +24,56 @@ keypoints:
 Now that we know a few basic commands,
 we can finally look at the shell's most powerful feature:
 the ease with which it lets us combine existing programs in new ways.
-We'll start with a directory called `molecules`
-that contains six files describing some simple organic molecules.
-The `.pdb` extension indicates that these files are in Protein Data Bank format,
-a simple text format that specifies the type and position of each atom in the molecule.
+We'll start with a directory called `genomes`
+that contains five files describing a draft *Synechococcus* genome (Everyone's favourite cyanobacteria).
+The `.f??` extension indicates that these files are fasta-formatted and contain, genome sequences, gene sequences or protein sequences.
 
 ~~~
-$ ls molecules
+$ ls genomes
 ~~~
 {: .language-bash}
 
 ~~~
-cubane.pdb    ethane.pdb    methane.pdb
-octane.pdb    pentane.pdb   propane.pdb
+backup  HB1133_20170901.faa  HB1133_20170901.faa.v.crak.out  HB1133_20170901.ffn  HB1133_20170901.fna  HB1133_20170901.fsa  report
 ~~~
 {: .output}
 
-Let's go into that directory with `cd` and run the command `wc *.pdb`.
+Let's go into that directory with `cd` and run the command `wc *.faa`.
 `wc` is the "word count" command:
 it counts the number of lines, words, and characters in files (from left to right, in that order).
 
-The `*` in `*.pdb` matches zero or more characters,
-so the shell turns `*.pdb` into a list of all `.pdb` files in the current directory:
+The `*` in `*.faa` matches zero or more characters,
+so the shell turns `*.faa` into a list of all `.faa` files in the current directory:
 
 ~~~
-$ cd molecules
-$ wc *.pdb
+$ cd genomes
+$ wc -l *.faa
 ~~~
 {: .language-bash}
 
 ~~~
-  20  156  1158  cubane.pdb
-  12  84   622   ethane.pdb
-   9  57   422   methane.pdb
-  30  246  1828  octane.pdb
-  21  165  1226  pentane.pdb
-  15  111  825   propane.pdb
- 107  819  6081  total
+15787 HB1133_20170901.faa
 ~~~
 {: .output}
 
 
+But why do this one file at a time? We can use wild cards to process all of the fasta files at  once
 
-If we run `wc -l` instead of just `wc`,
+
+If we run `wc -l *.f??` instead of just `wc -l *.faa`,
 the output shows only the number of lines per file:
 
 ~~~
-$ wc -l *.pdb
+wc -l *.f??
 ~~~
 {: .language-bash}
 
 ~~~
-  20  cubane.pdb
-  12  ethane.pdb
-   9  methane.pdb
-  30  octane.pdb
-  21  pentane.pdb
-  15  propane.pdb
- 107  total
+  15787 HB1133_20170901.faa
+  39662 HB1133_20170901.ffn
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+ 134545 total
 ~~~
 {: .output}
 
@@ -94,7 +86,7 @@ but what if there were 6000?
 Our first step toward a solution is to run the command:
 
 ~~~
-$ wc -l *.pdb > lengths.txt
+$ wc -l *.f?? > lengths.txt
 ~~~
 {: .language-bash}
 
@@ -129,13 +121,11 @@ $ cat lengths.txt
 {: .language-bash}
 
 ~~~
-  20  cubane.pdb
-  12  ethane.pdb
-   9  methane.pdb
-  30  octane.pdb
-  21  pentane.pdb
-  15  propane.pdb
- 107  total
+  15787 HB1133_20170901.faa
+  39662 HB1133_20170901.ffn
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+ 134545 total
 ~~~
 {: .output}
 
@@ -205,13 +195,11 @@ $ sort -n lengths.txt
 {: .language-bash}
 
 ~~~
-  9  methane.pdb
- 12  ethane.pdb
- 15  propane.pdb
- 20  cubane.pdb
- 21  pentane.pdb
- 30  octane.pdb
-107  total
+  15787 HB1133_20170901.faa
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+  39662 HB1133_20170901.ffn
+ 134545 total
 ~~~
 {: .output}
 
@@ -228,7 +216,7 @@ $ head -n 1 sorted-lengths.txt
 {: .language-bash}
 
 ~~~
-  9  methane.pdb
+15787 HB1133_20170901.faa
 ~~~
 {: .output}
 
@@ -255,61 +243,6 @@ the output of `head` must be the file with the fewest lines.
 > the contents of `lengths.txt`.
 {: .callout}
 
-> ## What Does `>>` Mean?
-> We have seen the use of `>`, but there is a similar operator `>>` which works slightly differently.
-> By using the `echo` command to print strings, test the commands below to reveal the difference
-> between the two operators:
->
-> ~~~
-> $ echo hello > testfile01.txt
-> ~~~
-> {: .language-bash}
->
-> and:
->
-> ~~~
-> $ echo hello >> testfile02.txt
-> ~~~
-> {: .language-bash}
->
-> Hint: Try executing each command twice in a row and then examining the output files.
-> > ## Solution
-> > In the first example with `>`, the string "hello" is written to `testfile01.txt`,
-> > but the file gets overwritten each time we run the command.
-> >
-> > We see from the second example that the `>>` operator also writes "hello" to a file
-> > (in this case`testfile02.txt`),
-> > but appends the string to the file if it already exists (i.e. when we run it for the second time).
-> {: .solution}
-{: .challenge}
-
-> ## Appending Data
->
-> We have already met the `head` command, which prints lines from the start of a file.
-> `tail` is similar, but prints lines from the end of a file instead.
->
-> Consider the file `data-shell/data/animals.txt`.
-> After these commands, select the answer that
-> corresponds to the file `animalsUpd.txt`:
->
-> ~~~
-> $ head -n 3 animals.txt > animalsUpd.txt
-> $ tail -n 2 animals.txt >> animalsUpd.txt
-> ~~~
-> {: .language-bash}
->
-> 1. The first three lines of `animals.txt`
-> 2. The last two lines of `animals.txt`
-> 3. The first three lines and the last two lines of `animals.txt`
-> 4. The second and third lines of `animals.txt`
->
-> > ## Solution
-> > Option 3 is correct. 
-> > For option 1 to be correct we would only run the `head` command.
-> > For option 2 to be correct we would only run the `tail` command.
-> > For option 4 to be correct we would have to pipe the output of `head` into `tail -2` by doing `head -3 animals.txt | tail -2 >> animalsUpd.txt`
-> {: .solution}
-{: .challenge}
 
 If you think this is confusing,
 you're in good company:
@@ -323,7 +256,7 @@ $ sort -n lengths.txt | head -n 1
 {: .language-bash}
 
 ~~~
-  9  methane.pdb
+15787 HB1133_20170901.faa
 ~~~
 {: .output}
 
@@ -342,47 +275,99 @@ and then the resulting output to `head`.
 Thus we first use a pipe to send the output of `wc` to `sort`:
 
 ~~~
-$ wc -l *.pdb | sort -n
+$ wc -l *.f?? | sort -n
 ~~~
 {: .language-bash}
 
 ~~~
-   9 methane.pdb
-  12 ethane.pdb
-  15 propane.pdb
-  20 cubane.pdb
-  21 pentane.pdb
-  30 octane.pdb
- 107 total
+  15787 HB1133_20170901.faa
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+  39662 HB1133_20170901.ffn
+ 134545 total
 ~~~
 {: .output}
 
 And now we send the output of this pipe, through another pipe, to `head`, so that the full pipeline becomes:
 
 ~~~
-$ wc -l *.pdb | sort -n | head -n 1
+$ wc -l *.f?? | sort -n | head -n 1
 ~~~
 {: .language-bash}
 
 ~~~
-   9  methane.pdb
+   15787 HB1133_20170901.faa
 ~~~
 {: .output}
 
 This is exactly like a mathematician nesting functions like *log(3x)*
 and saying "the log of three times *x*".
 In our case,
-the calculation is "head of sort of line count of `*.pdb`".
+the calculation is "head of sort of line count of `*.f??`".
+
+
+Let's do something useful with these commands, like count the number of sequences in each file.
+To do this we need one more trick `grep`, a pattern matching function. Each sequence in a fasta file is composed of a header denoted by a `>` at the start of the line, followed the the sequence on a new line.
+We can use `grep` to find only the header lines in a fasta file.
+
+~~~
+$ grep '>' HB1133_20170901.fna
+~~~
+{: .language-bash}
+
+~~~
+>Syn_HB1133_58
+>Syn_HB1133_7
+>Syn_HB1133_3
+>Syn_HB1133_11
+>Syn_HB1133_18
+>Syn_HB1133_54
+>Syn_HB1133_198
+>Syn_HB1133_68
+>Syn_HB1133_177
+>Syn_HB1133_174
+
+~~~
+{: .output}
+
+We can also add an option flag to `-c` to the command that will count the number of occurrences
+
+~~~
+$ grep -c '>' HB1133_20170901.fna
+~~~
+{: .language-bash}
+
+~~~
+10
+
+~~~
+{: .output}
+
+> ## Retrieving counts from multiple files
+>
+> In our current directory, we want to find the number of sequences in each of the fasta files
+>
+>
+> > ## Solution
+> > The solution is to use a wildcard
+> >
+> > grep -c '>' HB1133_20170901.f??
+> >
+> {: .solution}
+{: .challenge}
+
+
+
 
 > ## Piping Commands Together
 >
 > In our current directory, we want to find the 3 files which have the least number of
-> lines. Which command listed below would work?
+> seqences. Which command listed below would work?
 >
-> 1. `wc -l * > sort -n > head -n 3`
-> 2. `wc -l * | sort -n | head -n 1-3`
-> 3. `wc -l * | head -n 3 | sort -n`
-> 4. `wc -l * | sort -n | head -n 3`
+> 1. `grep -c '>' HB1133_20170901.f?? > sort -n > head -n 3`
+> 2. `grep -c '>' HB1133_20170901.f?? | sort -n | head -n 1-3`
+> 3. `grep -c '>' HB1133_20170901.f?? | head -n 3 | sort -n`
+> 4. `grep -c '>' HB1133_20170901.f?? | sort -n | head -n 3`
 >
 > > ## Solution
 > > Option 4 is the solution.
@@ -402,8 +387,8 @@ most Unix programmers call it "stdin").
 Every process also has a default output channel called **standard output**
 (or "stdout"). A second output channel called **standard error** (stderr) also
 exists. This channel is typically used for error or diagnostic messages, and it
-allows a user to pipe the output of one program into another while still receiving 
-error messages in the terminal. 
+allows a user to pipe the output of one program into another while still receiving
+error messages in the terminal.
 
 The shell is actually just another program.
 Under normal circumstances,
@@ -467,293 +452,13 @@ so that you and other people can put those programs into pipes to multiply their
 > standard input.
 {: .callout}
 
-> ## What Does `<` Mean?
->
-> Change directory to `data-shell` (the top level of our downloaded example data).
->
-> What is the difference between:
->
-> ~~~
-> $ wc -l notes.txt
-> ~~~
-> {: .language-bash}
->
-> and:
->
-> ~~~
-> $ wc -l < notes.txt
-> ~~~
-> {: .language-bash}
->
-> > ## Solution
-> > `<` is used to redirect input to a command. 
-> >
-> > In both examples, the shell returns the number of lines from the input to
-> > the `wc` command.
-> > In the first example, the input is the file `notes.txt` and the file name is
-> > given in the output from the `wc` command.
-> > In the second example, the contents of the file `notes.txt` are redirected to
-> > standard input.
-> > It is as if we have entered the contents of the file by typing at the prompt.
-> > Hence the file name is not given in the output - just the number of lines.
-> > Try this for yourself:
-> >
-> > ```
-> > $ wc -l
-> > this
-> > is
-> > a test
-> > Ctrl-D # This lets the shell know you have finished typing the input
-> > ```
-> > {: .language-bash}
-> >
-> > ```
-> > 3
-> > ```
-> > {: .output}
-> {: .solution}
-{: .challenge}
 
-> ## Why Does `uniq` Only Remove Adjacent Duplicates?
->
-> The command `uniq` removes adjacent duplicated lines from its input.
-> For example, the file `data-shell/data/salmon.txt` contains:
->
-> ~~~
-> coho
-> coho
-> steelhead
-> coho
-> steelhead
-> steelhead
-> ~~~
-> {: .source}
->
-> Running the command `uniq salmon.txt` from the `data-shell/data` directory produces:
->
-> ~~~
-> coho
-> steelhead
-> coho
-> steelhead
-> ~~~
-> {: .output}
->
-> Why do you think `uniq` only removes *adjacent* duplicated lines?
-> (Hint: think about very large data sets.) What other command could
-> you combine with it in a pipe to remove all duplicated lines?
->
-> > ## Solution
-> > ```
-> > $ sort salmon.txt | uniq
-> > ```
-> > {: .language-bash}
-> {: .solution}
-{: .challenge}
-
-> ## Pipe Reading Comprehension
->
-> A file called `animals.txt` (in the `data-shell/data` folder) contains the following data:
->
-> ~~~
-> 2012-11-05,deer
-> 2012-11-05,rabbit
-> 2012-11-05,raccoon
-> 2012-11-06,rabbit
-> 2012-11-06,deer
-> 2012-11-06,fox
-> 2012-11-07,rabbit
-> 2012-11-07,bear
-> ~~~
-> {: .source}
->
-> What text passes through each of the pipes and the final redirect in the pipeline below?
->
-> ~~~
-> $ cat animals.txt | head -n 5 | tail -n 3 | sort -r > final.txt
-> ~~~
-> {: .language-bash}
-> Hint: build the pipeline up one command at a time to test your understanding
-> > ## Solution
-> > The `head` command extracts the first 5 lines from `animals.txt`.
-> > Then, the last 3 lines are extracted from the previous 5 by using the `tail` command.
-> > With the `sort -r` command those 3 lines are sorted in reverse order and finally,
-> > the output is redirected to a file `final.txt`.
-> > The content of this file can be checked by executing `cat final.txt`.
-> > The file should contain the following lines:
-> > ```
-> > 2012-11-06,rabbit
-> > 2012-11-06,deer
-> > 2012-11-05,raccoon
-> > ```
-> > {: .source}
-> {: .solution}
-{: .challenge}
-
-> ## Pipe Construction
->
-> For the file `animals.txt` from the previous exercise, the command:
->
-> ~~~
-> $ cut -d , -f 2 animals.txt
-> ~~~
-> {: .language-bash}
-> 
-> uses the `-d` flag to separate each line by comma, and the `-f` flag
-> to print the second field in each line, to give the following output:
->
-> ~~~
-> deer
-> rabbit
-> raccoon
-> rabbit
-> deer
-> fox
-> rabbit
-> bear
-> ~~~
-> {: .output}
->
-> What other command(s) could be added to this in a pipeline to find
-> out what animals the file contains (without any duplicates in their
-> names)?
->
-> > ## Solution
-> > ```
-> > $ cut -d , -f 2 animals.txt | sort | uniq
-> > ```
-> > {: .language-bash}
-> {: .solution}
-{: .challenge}
-
-> ## Which Pipe?
->
-> The file `animals.txt` contains 586 lines of data formatted as follows:
->
-> ~~~
-> 2012-11-05,deer
-> 2012-11-05,rabbit
-> 2012-11-05,raccoon
-> 2012-11-06,rabbit
-> ...
-> ~~~
-> {: .output}
->
-> Assuming your current directory is `data-shell/data/`,
-> what command would you use to produce a table that shows
-> the total count of each type of animal in the file?
->
-> 1.  `grep {deer, rabbit, raccoon, deer, fox, bear} animals.txt | wc -l`
-> 2.  `sort animals.txt | uniq -c`
-> 3.  `sort -t, -k2,2 animals.txt | uniq -c`
-> 4.  `cut -d, -f 2 animals.txt | uniq -c`
-> 5.  `cut -d, -f 2 animals.txt | sort | uniq -c`
-> 6.  `cut -d, -f 2 animals.txt | sort | uniq -c | wc -l`
->
-> > ## Solution
-> > Option 5. is the correct answer.
-> > If you have difficulty understanding why, try running the commands, or sub-sections of
-> > the pipelines (make sure you are in the `data-shell/data` directory).
-> {: .solution}
-{: .challenge}
-
-## Nelle's Pipeline: Checking Files
-
-Nelle has run her samples through the assay machines
-and created 17 files in the `north-pacific-gyre/2012-07-03` directory described earlier.
-As a quick sanity check, starting from her home directory, Nelle types:
-
-~~~
-$ cd north-pacific-gyre/2012-07-03
-$ wc -l *.txt
-~~~
-{: .language-bash}
-
-The output is 18 lines that look like this:
-
-~~~
-300 NENE01729A.txt
-300 NENE01729B.txt
-300 NENE01736A.txt
-300 NENE01751A.txt
-300 NENE01751B.txt
-300 NENE01812A.txt
-... ...
-~~~
-{: .output}
-
-Now she types this:
-
-~~~
-$ wc -l *.txt | sort -n | head -n 5
-~~~
-{: .language-bash}
-
-~~~
- 240 NENE02018B.txt
- 300 NENE01729A.txt
- 300 NENE01729B.txt
- 300 NENE01736A.txt
- 300 NENE01751A.txt
-~~~
-{: .output}
-
-Whoops: one of the files is 60 lines shorter than the others.
-When she goes back and checks it,
-she sees that she did that assay at 8:00 on a Monday morning --- someone
-was probably in using the machine on the weekend,
-and she forgot to reset it.
-Before re-running that sample,
-she checks to see if any files have too much data:
-
-~~~
-$ wc -l *.txt | sort -n | tail -n 5
-~~~
-{: .language-bash}
-
-~~~
- 300 NENE02040B.txt
- 300 NENE02040Z.txt
- 300 NENE02043A.txt
- 300 NENE02043B.txt
-5040 total
-~~~
-{: .output}
-
-Those numbers look good --- but what's that 'Z' doing there in the third-to-last line?
-All of her samples should be marked 'A' or 'B';
-by convention,
-her lab uses 'Z' to indicate samples with missing information.
-To find others like it, she does this:
-
-~~~
-$ ls *Z.txt
-~~~
-{: .language-bash}
-
-~~~
-NENE01971Z.txt    NENE02040Z.txt
-~~~
-{: .output}
-
-Sure enough,
-when she checks the log on her laptop,
-there's no depth recorded for either of those samples.
-Since it's too late to get the information any other way,
-she must exclude those two files from her analysis.
-She could just delete them using `rm`,
-but there are actually some analyses she might do later where depth doesn't matter,
-so instead, she'll just be careful later on to select files using the wildcard expression `*[AB].txt`.
-As always,
-the `*` matches any number of characters;
-the expression `[AB]` matches either an 'A' or a 'B',
-so this matches all the valid data files she has.
 
 > ## Wildcard Expressions
 >
 > Wildcard expressions can be very complex, but you can sometimes write
 > them in ways that only use simple syntax, at the expense of being a bit
-> more verbose.  
+> more verbose.
 > Consider the directory `data-shell/north-pacific-gyre/2012-07-03` :
 > the wildcard expression `*[AB].txt`
 > matches all files ending in `A.txt` or `B.txt`. Imagine you forgot about
@@ -771,7 +476,7 @@ so this matches all the valid data files she has.
 >     where the original one would not?
 >
 > > ## Solution
-> > 1. 
+> > 1.
 > >
 > > 	```
 > > 	$ ls *A.txt
