@@ -87,7 +87,7 @@ screen -S Assembly
 
 cat mySamplefiltered_*U.fq > mySamplefiltered_12U.fq
 
-/usr/local/spades/SPAdes-3.12.0-Linux/bin/spades.py --meta -1 mySamplefiltered_1P.fq -2 mySamplefiltered_2P.fq -s mySamplefiltered_12U.fq -t 16 -o assembly
+/usr/local/megahit/megahit --meta -1 mySamplefiltered_1P.fq -2 mySamplefiltered_2P.fq -r mySamplefiltered_12U.fq -t 4 -o assembly
 ~~~
 {: .language-bash}
 
