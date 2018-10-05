@@ -85,9 +85,9 @@ We will use the program screen and give this session a name
 ~~~
 screen -S Assembly
 
-cat mySamplefiltered_*U.fq > mySamplefiltered_12U.fq
+cat mySamplefiltered_*U.fq.gz > mySamplefiltered_12U.fq.gz
 
-/usr/local/megahit/megahit --meta -1 mySamplefiltered_1P.fq -2 mySamplefiltered_2P.fq -r mySamplefiltered_12U.fq -t 4 -o assembly
+/usr/local/megahit/megahit -1 mySamplefiltered_1P.fq.gz -2 mySamplefiltered_2P.fq.gz -r mySamplefiltered_12U.fq.gz -t 4 -o assembly
 ~~~
 {: .language-bash}
 
@@ -128,7 +128,7 @@ quast.py contigs.fa
 ~~~
 bowtie2-build scaffolds.fasta scaffolds
 
-bowtie2 -x scaffolds -1 ../mySamplefiltered_1P.fq -2 ../AmySamplefiltered_1P.fq -U ../mySamplefiltered_12U.fq -S test1.sam
+bowtie2 -x scaffolds -1 ../mySamplefiltered_1P.fq.gz -2 ../AmySamplefiltered_1P.fq -U ../mySamplefiltered_12U.fq -S test1.sam
 ~~~
 {: .language-bash}
 
