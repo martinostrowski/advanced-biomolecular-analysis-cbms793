@@ -96,7 +96,7 @@ cat mySamplefiltered_*U.fq.gz > mySamplefiltered_12U.fq.gz
 Produce a summary of results using quast
 
 ~~~
-quast.py contigs.fa
+/usr/local/quast/quast-4.6.3/quast.py contigs.fa
 ~~~
 {: .language-bash}
 
@@ -126,16 +126,16 @@ quast.py contigs.fa
 
 
 ~~~
-bowtie2-build scaffolds.fasta scaffolds
+bowtie2-build final.contigs.fa scaffolds
 
-bowtie2 -x scaffolds -1 ../mySamplefiltered_1P.fq.gz -2 ../AmySamplefiltered_1P.fq -U ../mySamplefiltered_12U.fq -S test1.sam
+bowtie2 -x contigs -1 ../mySamplefiltered_1P.fq.gz -2 ../AmySamplefiltered_1P.fq.gz -U ../mySamplefiltered_12U.fq.gz -S contigs.reads.mapped.sam
 ~~~
 {: .language-bash}
 
 convert sam to bam file for MetaBat # this needs to be fixed
 
 ~~~
-samtools view -bS test1.sam | samtools sort - test1_sorted
+samtools view -bS contigs.reads.mapped.sam | samtools sort - contigs.sorted
 ~~~
 {: .language-bash}
 
@@ -144,41 +144,35 @@ samtools view -bS test1.sam | samtools sort - test1_sorted
 
 
 ~~~
-~/metabat/runMetaBat.sh scaffolds.fasta test1_sorted.bam
+/usr/local/anaconda2/bin/runMetaBat.sh -t 4 final.contigs.fa contigs.sorted.bam
 ~~~
 {: .language-bash}
 
 mv bins to bins directory !!
 
-~~~
-mkdir bins
 
-mv *fa bins/
-~~~
-{: .language-bash}
-
-
-5. analyse bins using CheckM
+and change its name so that we are all on the same page
 
 ~~~
-checkm lineage_wf -t 8 -x fa bins checkm_out
+mv xxxxxxxxx metabat.bins
+
 ~~~
 {: .language-bash}
 
 
-6. Prokka rough annotation of selected bins (we will refine this after we close the assembly)
-
-shorten name of fasta headers for PRokka using sed find and replace pattern
+Analyse bins using CheckM.
 
 ~~~
-sed -i 's/_length/ length/' SynPH4-1509_v1.fa
-~~~
-
-~~~
-prokka -outdir SynPH4-1509_v1 SynPH4-1509_v1.fa -force
+checkm lineage_wf -f metabat.bins/checkm.txt -t 4 -x fa metabat.bins/ metabat.bins/scg
 ~~~
 {: .language-bash}
 
+When this analysis is done open and explore the results
+
+~~~
+nano metabat.bins/checkm.txt
+~~~
+{: .language-bash}
 
 
 
