@@ -374,7 +374,6 @@ $ grep -c '>' HB1133_20170901.fna
 > > The pipe character `|` is used to feed the standard output from one process to
 > > the standard input of another.
 > > `>` is used to redirect standard output to a file.
-> > Try it in the `data-shell/molecules` directory!
 > {: .solution}
 {: .challenge}
 
@@ -399,21 +398,21 @@ it creates a new process
 and temporarily sends whatever we type on our keyboard to that process's standard input,
 and whatever the process sends to standard output to the screen.
 
-Here's what happens when we run `wc -l *.pdb > lengths.txt`.
+Here's what happens when we run `wc -l *.fna > lengths.txt`.
 The shell starts by telling the computer to create a new process to run the `wc` program.
 Since we've provided some filenames as arguments,
 `wc` reads from them instead of from standard input.
 And since we've used `>` to redirect output to a file,
 the shell connects the process's standard output to that file.
 
-If we run `wc -l *.pdb | sort -n` instead,
+If we run `wc -l *.fna | sort -n` instead,
 the shell creates two processes
 (one for each process in the pipe)
 so that `wc` and `sort` run simultaneously.
 The standard output of `wc` is fed directly to the standard input of `sort`;
 since there's no redirection with `>`,
 `sort`'s output goes to the screen.
-And if we run `wc -l *.pdb | sort -n | head -n 1`,
+And if we run `wc -l *.fna | sort -n | head -n 1`,
 we get three processes with data flowing from the files,
 through `wc` to `sort`,
 and from `sort` through `head` to the screen.
@@ -444,11 +443,11 @@ so that you and other people can put those programs into pipes to multiply their
 >
 > As well as using `>` to redirect a program's output, we can use `<` to
 > redirect its input, i.e., to read from a file instead of from standard
-> input. For example, instead of writing `wc ammonia.pdb`, we could write
-> `wc < ammonia.pdb`. In the first case, `wc` gets a command line
+> input. For example, instead of writing `wc HB1133_20170901.fna`, we could write
+> `wc < HB1133_20170901.fna`. In the first case, `wc` gets a command line
 > argument telling it what file to open. In the second, `wc` doesn't have
 > any command line arguments, so it reads from standard input, but we
-> have told the shell to send the contents of `ammonia.pdb` to `wc`'s
+> have told the shell to send the contents of `HB1133_20170901.fna` to `wc`'s
 > standard input.
 {: .callout}
 
@@ -459,34 +458,11 @@ so that you and other people can put those programs into pipes to multiply their
 > Wildcard expressions can be very complex, but you can sometimes write
 > them in ways that only use simple syntax, at the expense of being a bit
 > more verbose.
-> Consider the directory `data-shell/north-pacific-gyre/2012-07-03` :
-> the wildcard expression `*[AB].txt`
-> matches all files ending in `A.txt` or `B.txt`. Imagine you forgot about
+> Consider the directory `genomes/` :
+> the wildcard expression `*.f[sfa]a`
+> matches all files ending in `.fna` or `.faa` or `.fsa`. Imagine you forgot about
 > this.
 >
-> 1.  Can you match the same set of files with basic wildcard expressions
->     that do not use the `[]` syntax? *Hint*: You may need more than one
->     expression.
->
-> 2.  The expression that you found and the expression from the lesson match the
->     same set of files in this example. What is the small difference between the
->     outputs?
->
-> 3.  Under what circumstances would your new expression produce an error message
->     where the original one would not?
->
-> > ## Solution
-> > 1.
-> >
-> > 	```
-> > 	$ ls *A.txt
-> > 	$ ls *B.txt
-> > 	```
-> >	{: .language-bash}
-> > 2. The output from the new commands is separated because there are two commands.
-> > 3. When there are no files ending in `A.txt`, or there are no files ending in
-> > `B.txt`.
-> {: .solution}
 {: .challenge}
 
 > ## Removing Unneeded Files

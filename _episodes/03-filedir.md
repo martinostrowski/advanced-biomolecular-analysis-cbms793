@@ -670,12 +670,12 @@ Run `pwd` and `ls -F` to ensure that we're in the directory we expect.
 > ## Absolute vs Relative Paths
 >
 > Starting from `/disks/jen/data/mres/jjohns/genomes`,
-> which of the following commands could Amanda use to navigate to her home directory,
+> which of the following commands could Jocelyn use to navigate to her home directory,
 > which is `/disks/jen/data/mres/jjohns`?
 >
 > 1. `cd .`
 > 2. `cd /`
-> 3. `cd /disks/jen/data/mres/jjohns`
+> 3. `cd /disks/jen/data/mres/`
 > 4. `cd ../..`
 > 5. `cd ~`
 > 6. `cd home`
