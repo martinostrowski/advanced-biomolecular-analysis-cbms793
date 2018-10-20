@@ -38,7 +38,7 @@ explain the syntax that is used to run Trimmomatic. The basic
 command to run Trimmomatic starts like this:
 
 ~~~
-$ java -jar trimmomatic-0.32.jar
+$ java -jar /usr/local/Trimmomatic-0.38/trimmomatic-0.38.jar
 ~~~
 {: .bash}
 
@@ -84,12 +84,15 @@ java -jar /usr/local/Trimmomatic-0.38/trimmomatic-0.38.jar
 ~~~
 {: .bash}
 
+
+*For future classes we will start with decompressed files*
+
 However, a complete command for Trimmomatic will look something like this:
 
 ~~~
 java -jar /usr/local/Trimmomatic-0.38/trimmomatic-0.38.jar PE -threads 4 \
  35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R1_001.fastq.gz 35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R2_001.fastq.gz \
- -baseout 35880_L001.trim.fastq.gz \
+ -baseout MySample.Filtered.fq.gz \
  ILLUMINACLIP:/usr/local/Trimmomatic-0.38/adapters/NexteraPE-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 ~~~
 {: .bash}
@@ -115,11 +118,19 @@ Notice that we needed to give the absolute path to our copy of the
 Trimmomatic program.
 
 ~~~
-TrimmomaticSE: Started with arguments: SRR098283.fastq SRR098283.fastq_trim.fastq SLIDINGWINDOW:4:20 MINLEN:20
-Automatically using 2 threads
+$java -jar /usr/local/Trimmomatic-0.38/trimmomatic-0.38.jar PE -threads 12  35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R1_001.fastq.gz 35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R2_001.fastq.gz  -baseout ~/MySample.Filtered.fq.gz  ILLUMINACLIP:/usr/local/Trimmomatic-0.38/adapters/NexteraPE-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+TrimmomaticPE: Started with arguments:
+ -threads 12 35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R1_001.fastq.gz 35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R2_001.fastq.gz -baseout /home/mostrowski/MySample.Filtered.fq.gz ILLUMINACLIP:/usr/local/Trimmomatic-0.38/adapters/NexteraPE-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using templated Output files: /home/mostrowski/MySample.Filtered_1P.fq.gz /home/mostrowski/MySample.Filtered_1U.fq.gz /home/mostrowski/MySample.Filtered_2P.fq.gz /home/mostrowski/MySample.Filtered_2U.fq.gz
+Using PrefixPair: 'AGATGTGTATAAGAGACAG' and 'AGATGTGTATAAGAGACAG'
+Using Long Clipping Sequence: 'GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG'
+Using Long Clipping Sequence: 'TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG'
+Using Long Clipping Sequence: 'CTGTCTCTTATACACATCTCCGAGCCCACGAGAC'
+Using Long Clipping Sequence: 'CTGTCTCTTATACACATCTGACGCTGCCGACGA'
+ILLUMINACLIP: Using 1 prefix pairs, 4 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
 Quality encoding detected as phred33
-Input Reads: 21564058 Surviving: 17030985 (78.98%) Dropped: 4533073 (21.02%)
-TrimmomaticSE: Completed successfully
+
+
 ~~~
 {: .output}
 
@@ -141,29 +152,29 @@ You may have noticed that Trimmomatic automatically detected the
 quality encoding of our sample. It is always a good idea to
 double-check this or to enter the quality encoding manually.
 
-We can confirm that we have our output file:
+We can confirm that we have our output files:
 
 ~~~
-$ ls SRR098283*
+$ ls MySample.Filtered*
 ~~~
 {: .bash}
 
 ~~~
-SRR098283.fastq  SRR098283.fastq_trim.fastq
+MySample.Filtered_1P.fq.gz  MySample.Filtered_2P.fq.gz  MySample.Filtered_1U.fq.gz  MySample.Filtered_2U.fq.gz
 ~~~
 {: .output}
 
-The output file is also a FASTQ file. It should be smaller than our
+The output files are also compressed FASTQ files. It should be smaller than our
 input file because we've removed reads. We can confirm this:
 
 ~~~
-$ ls SRR098283* -l -h
+$ ls 35880* -l -h
+$ ls MySample.Filtered* -l -h
 ~~~
 {: .bash}
 
 ~~~
--rw-r--r-- 1 dcuser dcuser 3.9G Jul 30  2015 SRR098283.fastq
--rw-rw-r-- 1 dcuser dcuser 3.0G Nov  7 23:10 SRR098283.fastq_trim.fastq
+
 ~~~
 {: .output}
 
@@ -171,8 +182,8 @@ $ ls SRR098283* -l -h
 We've just successfully run Trimmomatic on our FASTQ files!
 
 > ## Exercise
-> Earlier we looked at the first read in our `SRR098026.fastq` file and
-> saw that it was very poor quality.
+> Earlier we looked at the last read in our `_R2` file and likely
+> saw that it was very poor quality at the end.
 >
 > ~~~
 > $ head -n4 SRR098026.fastq
@@ -219,58 +230,4 @@ We've just successfully run Trimmomatic on our FASTQ files!
 {: .challenge}
 
 We've now completed the trimming and filtering steps of our quality
-control process! Before we move on, let's move our trimmed FASTQ files
-to a new subdirectory within our `data/` directory. We can also remove
-our extra, double-trimmed file for the `SRR098283` sample.
-
-~~~
-$ cd ~/dc_workshop/data/untrimmed_fastq
-$ mkdir ../trimmed_fastq
-$ rm SRR098283.fastq_trim.fastq_trim.fastq
-$ mv *_trim* ../trimmed_fastq
-$ cd ../trimmed_fastq
-$ ls
-~~~
-{: .bash}
-
-~~~
-SRR097977.fastq_trim.fastq  SRR098028.fastq_trim.fastq
-SRR098026.fastq_trim.fastq  SRR098281.fastq_trim.fastq
-SRR098027.fastq_trim.fastq  SRR098283.fastq_trim.fastq
-~~~
-{: .output}
-
-> ## Bonus Exercise (Advanced)
->
-> Now that we've quality controled our samples, they should perform
-> better on the quality tests run by FastQC. Go ahead and re-run
-> FastQC on your trimmed FASTQ files and visualize the HTML files
-> to see whether your per base sequence quality is higher after
-> trimming.
->
->> ## Solution
->>
->> In your AWS terminal window do:
->>
->> ~~~
->> $ ~/FastQC/fastqc ~/dc_workshop/data/trimmed_fastq
->> ~~~
->> {: .bash}
->>
->> In a new tab in your terminal do:
->>
->> ~~~
->> $ mkdir ~/Desktop/fastqc_html/trimmed
->> $ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/trimmed_fastq/*.html ~/Desktop/fastqc_html/trimmed
->> $ open ~/Desktop/fastqc_html/trimmed/*.html
->> ~~~
->> {: .bash}
->>
->> Remember to replace everything between the `@` and `:` in your scp
->> command with your AWS instance number.
->>
->> Before trimming, one of the sequences gave a warning and another
->> failed the per base sequence quality test. After filtering, all
->> sequences pass that test.
-> {: .solution}
-{: .challenge}
+control process!

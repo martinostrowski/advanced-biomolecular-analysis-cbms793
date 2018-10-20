@@ -1,0 +1,639 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2018-10-20 22:53:04 +1100">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/syntax.css" />
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <title>CBMS Advanced Biomolecular Analysis - Genomics: Trimming and Filtering</title>
+  </head>
+  <body>
+
+    
+
+
+
+
+
+
+
+    <div class="container">
+      
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+
+      
+      <a class="navbar-brand" href="../index.html">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+
+        
+	
+        <li><a href="../setup.html">Setup</a></li>
+
+        
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a href="../01-intro/index.html">Introducing the Shell</a></li>
+            
+            <li><a href="../02-filedir/index.html">Navigating Files and Directories</a></li>
+            
+            <li><a href="../03-create/index.html">Working With Files and Directories</a></li>
+            
+            <li><a href="../04-pipefilter/index.html">Pipes and Filters</a></li>
+            
+            <li><a href="../06-Genome_assembly/index.html">Genome Assembly Workflow</a></li>
+            
+            <li><a href="../06-trimming/index.html">Trimming and Filtering</a></li>
+            
+            <li><a href="../07-meta-genome_assembly/index.html">Genome Assembly Workflow - Week 2</a></li>
+            
+            <li><a href="../08-assembly_mapping_and%20binning/index.html">Assembly Mapping and Binning</a></li>
+            
+            <li><a href="../09-annotation-of-genome-bins/index.html">Annotation of genome bins. Week 2-3</a></li>
+            
+            <li><a href="../12-taxonomic-assignment/index.html">Taxonomic assignment using LCA. Week 3-4</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="../aio.html">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../reference.html">Reference</a></li>
+            
+            <li><a href="../about/index.html">About</a></li>
+            
+            <li><a href="../discuss/index.html">Discussion</a></li>
+            
+            <li><a href="../figures/index.html">Figures</a></li>
+            
+            <li><a href="../guide/index.html">Instructor Notes</a></li>
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="../LICENSE.html">License</a></li>
+	
+	<li><a href="/edit/gh-pages/_episodes/06-trimming.md">Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../06-Genome_assembly/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+    <h3 class="maintitle"><a href="../">CBMS Advanced Biomolecular Analysis - Genomics</a></h3>
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../07-meta-genome_assembly/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+<article>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <h1 class="maintitle">Trimming and Filtering</h1>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 30 min
+      <br/>
+      <strong>Exercises:</strong> 25 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>How can I get rid of sequence data that doesn’t meet my quality standards?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>Clean FASTQ reads using Trimmommatic.</p>
+</li>
+	
+	<li><p>Select and set multiple options for command-line bioinformatics tools.</p>
+</li>
+	
+	<li><p>Write <code class="highlighter-rouge">for</code> loops with two variables.</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<h1 id="cleaning-reads">Cleaning Reads</h1>
+
+<p>In the previous episode, we took a high-level look at the quality
+of each of our samples using FastQC. We vizualized per-base quality
+graphs showing the distribution of read quality at each base across
+all reads in a sample and extracted information about which samples
+fail which quality checks. We know that all of our samples failed at
+least one of the quality metrics used by FastQC. This doesn’t mean,
+though, that our samples should be thrown out! It’s very common to
+have some reads within a sample,
+or some positions (near the begining or end of reads) across all
+reads that are low
+quality and should be discarded. We will use a program called
+<a href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a> to
+filter poor quality reads and trim poor quality bases from our samples.</p>
+
+<h2 id="trimmomatic-options">Trimmomatic Options</h2>
+
+<p>Trimmomatic is a program written in the Java programming language.
+You don’t need to learn Java to use Trimmomatic (FastQC is also
+written in Java), but the fact that it’s a Java program helps
+explain the syntax that is used to run Trimmomatic. The basic
+command to run Trimmomatic starts like this:</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ java -jar trimmomatic-0.32.jar
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">java</code> tells our computer that we’re running a Java program. <code class="highlighter-rouge">-jar</code>
+is an option specifying that we’re going to specify the location of
+the Java program we want to run. The Java program itself will have
+a <code class="highlighter-rouge">.jar</code> file extension.</p>
+
+<p>That’s just the basic command, however. Trimmomatic has a variety of
+options and parameters. We will need to specify what options we want
+to use for our analysis. Here are some of the options:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>option</th>
+      <th>meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">-threads</code></td>
+      <td>Specify the number of processors you want Trimmomatic to use.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">SE</code> or <code class="highlighter-rouge">PE</code></td>
+      <td>Specify whether your reads are single or paired end.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">-phred33</code> or <code class="highlighter-rouge">-phred64</code></td>
+      <td>Specify the encoding system for your quality scores.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In addition to these options, there are various trimming steps
+available:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>step</th>
+      <th>meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">SLIDINGWINDOW</code></td>
+      <td>Perform sliding window trimming, cutting once the average quality within the window falls below a threshold.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">LEADING</code></td>
+      <td>Cut bases off the start of a read, if below a threshold quality.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">TRAILING</code></td>
+      <td>Cut bases off the end of a read, if below a threshold quality.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">CROP</code></td>
+      <td>Cut the read to a specified length.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">HEADCROP</code></td>
+      <td>Cut the specified number of bases from the start of the read.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">MINLEN</code></td>
+      <td>Drop an entire read if it is below a specified length.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">TOPHRED33</code></td>
+      <td>Convert quality scores to Phred-33.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">TOPHRED64</code></td>
+      <td>Convert quality scores to Phred-64.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We will use only a few of these options and trimming steps in our
+analysis. It is important to understand the steps you are using to
+clean your data. For more information about the Trimmomatic arguments
+and options, see <a href="http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf">the Trimmomatic manual</a>.</p>
+
+<p>We said above that a basic command for Trimmomatic looks like this:</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /usr/local/Trimmomatic-0.38/trimmomatic-0.38.jar
+</code></pre></div></div>
+
+<p>However, a complete command for Trimmomatic will look something like this:</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar /usr/local/Trimmomatic-0.38/trimmomatic-0.38.jar PE -threads 4 \
+ 35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R1_001.fastq.gz 35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R2_001.fastq.gz \
+ -baseout 35880_L001.trim.fastq.gz \
+ ILLUMINACLIP:/usr/local/Trimmomatic-0.38/adapters/NexteraPE-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+</code></pre></div></div>
+
+<p>In this example, we’ve told Trimmomatic:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>code</th>
+      <th>meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">PE</code></td>
+      <td>that it will be taking a single end file as input</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">-threads 4</code></td>
+      <td>to use four computing threads to run (this will spead up our run)</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R1_001.fastq.gz </code></td>
+      <td>the R1 input file name</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">35880_1_PE_700bp_MM_UNSW_HM35MBCXY_GCGTAGTA-GAGCCTTA_S8_L001_R2_001.fastq.gz </code></td>
+      <td>the R1 input file name</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">35880_L001.trim.fastq.gz</code></td>
+      <td>the base output file name to create</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">ILLUMINACLIP:/usr/local/Trimmomatic-0.38/adapters/NexteraPE-PE.fa:2:30:10</code></td>
+      <td>to clip the Illumina adapters from the input file using the adapter sequences listed in <code class="highlighter-rouge">NexteraPE-PE.fa</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">SLIDINGWINDOW:4:15</code></td>
+      <td>to use a sliding window of size 4 that will remove bases if their phred score is below 20</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="running-trimmomatic">Running Trimmomatic</h2>
+
+<p>Now we will run Trimmomatic on our data. To begin, navigate to your metagenome data directory:</p>
+
+<p>Notice that we needed to give the absolute path to our copy of the
+Trimmomatic program.</p>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TrimmomaticSE: Started with arguments: SRR098283.fastq SRR098283.fastq_trim.fastq SLIDINGWINDOW:4:20 MINLEN:20
+Automatically using 2 threads
+Quality encoding detected as phred33
+Input Reads: 21564058 Surviving: 17030985 (78.98%) Dropped: 4533073 (21.02%)
+TrimmomaticSE: Completed successfully
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="exercise">Exercise</h2>
+
+  <p>Use the output from your Trimmomatic command to answer the
+following questions.</p>
+
+  <p>1) What percent of reads did we discard from our sample?
+2) What percent of reads did we keep?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+    <p>1) 21.02%
+2) 78.98%</p>
+  </blockquote>
+</blockquote>
+
+<p>You may have noticed that Trimmomatic automatically detected the
+quality encoding of our sample. It is always a good idea to
+double-check this or to enter the quality encoding manually.</p>
+
+<p>We can confirm that we have our output file:</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ls SRR098283*
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SRR098283.fastq  SRR098283.fastq_trim.fastq
+</code></pre></div></div>
+
+<p>The output file is also a FASTQ file. It should be smaller than our
+input file because we’ve removed reads. We can confirm this:</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ls SRR098283* -l -h
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rw-r--r-- 1 dcuser dcuser 3.9G Jul 30  2015 SRR098283.fastq
+-rw-rw-r-- 1 dcuser dcuser 3.0G Nov  7 23:10 SRR098283.fastq_trim.fastq
+</code></pre></div></div>
+
+<p>We’ve just successfully run Trimmomatic on our FASTQ files!</p>
+
+<blockquote class="challenge">
+  <h2 id="exercise-1">Exercise</h2>
+  <p>Earlier we looked at the first read in our <code class="highlighter-rouge">SRR098026.fastq</code> file and
+saw that it was very poor quality.</p>
+
+  <div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ head -n4 SRR098026.fastq
+</code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@SRR098026.1 HWUSI-EAS1599_1:2:1:0:968 length=35
+NNNNNNNNNNNNNNNNCNNNNNNNNNNNNNNNNNN
++SRR098026.1 HWUSI-EAS1599_1:2:1:0:968 length=35
+!!!!!!!!!!!!!!!!#!!!!!!!!!!!!!!!!!!
+</code></pre></div>  </div>
+
+  <p>After filtering out bad reads, what is the first remaining read for
+this sample? What does its quality look like?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+    <div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ head -n4 SRR098026.fastq_trim.fastq
+</code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@SRR098026.342 HWUSI-EAS1599_1:2:1:3:655 length=35
+GGATNGGCCTTGTATTTATGATTCTCNGAGTCTGT
++SRR098026.342 HWUSI-EAS1599_1:2:1:3:655 length=35
+BB@B!B@AACBBABCCCCBBBBBB@@!B?B&lt;ABB@
+</code></pre></div>    </div>
+
+    <p>Comparing this with our quality scale:</p>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Quality encoding: !"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHI
+                  |         |         |         |         |
+Quality score:    0........10........20........30........40
+</code></pre></div>    </div>
+
+    <p>We can see that the scores are mostly in the 30+ range. This is
+pretty good.</p>
+  </blockquote>
+</blockquote>
+
+<p>We’ve now completed the trimming and filtering steps of our quality
+control process! Before we move on, let’s move our trimmed FASTQ files
+to a new subdirectory within our <code class="highlighter-rouge">data/</code> directory. We can also remove
+our extra, double-trimmed file for the <code class="highlighter-rouge">SRR098283</code> sample.</p>
+
+<div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~/dc_workshop/data/untrimmed_fastq
+$ mkdir ../trimmed_fastq
+$ rm SRR098283.fastq_trim.fastq_trim.fastq
+$ mv *_trim* ../trimmed_fastq
+$ cd ../trimmed_fastq
+$ ls
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SRR097977.fastq_trim.fastq  SRR098028.fastq_trim.fastq
+SRR098026.fastq_trim.fastq  SRR098281.fastq_trim.fastq
+SRR098027.fastq_trim.fastq  SRR098283.fastq_trim.fastq
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="bonus-exercise-advanced">Bonus Exercise (Advanced)</h2>
+
+  <p>Now that we’ve quality controled our samples, they should perform
+better on the quality tests run by FastQC. Go ahead and re-run
+FastQC on your trimmed FASTQ files and visualize the HTML files
+to see whether your per base sequence quality is higher after
+trimming.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+
+    <p>In your AWS terminal window do:</p>
+
+    <div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ~/FastQC/fastqc ~/dc_workshop/data/trimmed_fastq
+</code></pre></div>    </div>
+
+    <p>In a new tab in your terminal do:</p>
+
+    <div class="bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ~/Desktop/fastqc_html/trimmed
+$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/trimmed_fastq/*.html ~/Desktop/fastqc_html/trimmed
+$ open ~/Desktop/fastqc_html/trimmed/*.html
+</code></pre></div>    </div>
+
+    <p>Remember to replace everything between the <code class="highlighter-rouge">@</code> and <code class="highlighter-rouge">:</code> in your scp
+command with your AWS instance number.</p>
+
+    <p>Before trimming, one of the sequences gave a warning and another
+failed the per base sequence quality test. After filtering, all
+sequences pass that test.</p>
+  </blockquote>
+</blockquote>
+
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+    <li><p>The options you set for the command-line tools you use are important!</p>
+</li>
+    
+    <li><p>Data cleaning is an essential step in a genomics workflow.</p>
+</li>
+    
+  </ul>
+</blockquote>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../06-Genome_assembly/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../07-meta-genome_assembly/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      
+<footer>
+  <div class="row">
+    <div class="col-md-6 copyright" align="left">
+
+    </div>
+    <div class="col-md-6 help-links" align="right">
+	
+	<a href="/edit/gh-pages/_episodes/06-trimming.md">Edit on GitHub</a>
+	
+	/
+	<a href="/blob/gh-pages/CONTRIBUTING.md">Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob/gh-pages/CITATION">Cite</a>
+	/
+	<a href="mailto:martin.ostrowski@mq.edu.au">Contact</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      Using <a href="https://github.com/carpentries/styles/">The Carpentries style</a>
+      version <a href="https://github.com/carpentries/styles/releases/tag/v9.5.3">9.5.3</a>.
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/lesson.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </body>
+</html>

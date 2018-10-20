@@ -23,9 +23,6 @@ life_cycle: "stable"
 # What kind of thing is this ("workshop" or "lesson")?
 kind: "lesson"
 
-
-remote_theme: jekyll-theme-slate
-
 # Magic to make URLs resolve both locally and on GitHub.
 # See https://help.github.com/articles/repository-metadata-on-github-pages/.
 # Please don't change it: <USERNAME>/<PROJECT> is correct.
@@ -103,4 +100,3 @@ exclude:
 # Turn on built-in syntax highlighting.
 highlighter: rouge
 
-theme: jekyll-theme-slate
