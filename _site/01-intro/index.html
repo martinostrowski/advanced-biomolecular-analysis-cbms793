@@ -1,0 +1,540 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2018-10-20 22:53:04 +1100">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/syntax.css" />
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <title>CBMS Advanced Biomolecular Analysis - Genomics: Introducing the Shell</title>
+  </head>
+  <body>
+
+    
+
+
+
+
+
+
+
+    <div class="container">
+      
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+
+      
+      <a class="navbar-brand" href="../index.html">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+
+        
+	
+        <li><a href="../setup.html">Setup</a></li>
+
+        
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a href="../01-intro/index.html">Introducing the Shell</a></li>
+            
+            <li><a href="../02-filedir/index.html">Navigating Files and Directories</a></li>
+            
+            <li><a href="../03-create/index.html">Working With Files and Directories</a></li>
+            
+            <li><a href="../04-pipefilter/index.html">Pipes and Filters</a></li>
+            
+            <li><a href="../06-Genome_assembly/index.html">Genome Assembly Workflow</a></li>
+            
+            <li><a href="../06-trimming/index.html">Trimming and Filtering</a></li>
+            
+            <li><a href="../07-meta-genome_assembly/index.html">Genome Assembly Workflow - Week 2</a></li>
+            
+            <li><a href="../08-assembly_mapping_and%20binning/index.html">Assembly Mapping and Binning</a></li>
+            
+            <li><a href="../09-annotation-of-genome-bins/index.html">Annotation of genome bins. Week 2-3</a></li>
+            
+            <li><a href="../12-taxonomic-assignment/index.html">Taxonomic assignment using LCA. Week 3-4</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="../aio.html">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../reference.html">Reference</a></li>
+            
+            <li><a href="../about/index.html">About</a></li>
+            
+            <li><a href="../discuss/index.html">Discussion</a></li>
+            
+            <li><a href="../figures/index.html">Figures</a></li>
+            
+            <li><a href="../guide/index.html">Instructor Notes</a></li>
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="../LICENSE.html">License</a></li>
+	
+	<li><a href="/edit/gh-pages/_episodes/01-intro.md">Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+    <h3 class="maintitle"><a href="../">CBMS Advanced Biomolecular Analysis - Genomics</a></h3>
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../02-filedir/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+<article>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <h1 class="maintitle">Introducing the Shell</h1>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 5 min
+      <br/>
+      <strong>Exercises:</strong> 0 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>What is a command shell and why would I use one?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>First objective. Connect to server and login to account.</p>
+</li>
+	
+	<li><p>Explain how the shell relates to the keyboard, the screen, the operating system, and users’ programs.</p>
+</li>
+	
+	<li><p>Explain when and why command-line interfaces should be used instead of graphical interfaces.</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<h3 id="background">Background</h3>
+<p>At a high level, computers do four things:</p>
+
+<ul>
+  <li>run programs</li>
+  <li>store data</li>
+  <li>communicate with each other, and</li>
+  <li>interact with us</li>
+</ul>
+
+<p>They can do the last of these in many different ways,
+including through a keyboard and mouse, or touch screen interfaces, or using speech recognition systems.
+While touch and voice interfaces are becoming more commonplace, most interaction is still
+done using traditional screens, mice, touchpads and keyboards.</p>
+
+<p>We are all familiar with <strong>graphical user interfaces</strong> (GUI): windows, icons and pointers.
+They are easy to learn and fantastic for simple tasks where a vocabulary consisting of
+“click” translates easily into “do the thing I want”. But this magic relies on
+wanting a simple set of things, and having programs that can do exactly those things.</p>
+
+<p>If you wish to do complex, purpose-specific things it helps to have a richer means
+of expressing your instructions to the computer. It doesn’t need to be complicated or
+difficult, just a vocabulary of commands and a simple grammar for using them.</p>
+
+<p>This is what the shell provides - a simple language and a <strong>command-line interface</strong>
+to use it through.</p>
+
+<p>The heart of a command-line interface is a <strong>read-evaluate-print loop</strong> (REPL). It is called
+so because when you type a command and press <kbd>Return</kbd> the shell
+reads your command,
+evaluates (or “executes”) it,
+prints the output of your command,
+loops back and waits for you to enter another command.</p>
+
+<h3 id="the-shell">The Shell</h3>
+
+<p>A shell is a program like any other.
+What’s special about it is that its job is to run other programs
+rather than to do calculations itself.
+The most popular Unix shell is Bash,
+the Bourne Again SHell
+(so-called because it’s derived from a shell written by Stephen Bourne).
+Bash is the default shell on most modern implementations of Unix
+and in most packages that provide Unix-like tools for Windows.</p>
+
+<h3 id="what-does-it-look-like">What does it look like?</h3>
+
+<p>If you are working on a linux or Mac operating system you will have the luxury of a built in terminal.
+For this course we will all be working on a remote linux server <strong>jen</strong> which is part of the Paulsen Research group
+High Performance Computing Infrastructure.</p>
+
+<p>In order to log into <strong>jen</strong> you will be given a username, password and the address of the servers
+which will allow you to login using a secure shell (ssh) connection using the Mac or Linux terminal or
+the windows mobaxterm interface.</p>
+
+<p>Keep your login details secure. You will need to collect your login details in person during Friday class or from
+4WW 336.</p>
+
+<p>Once you login to your account you will find the raw sequence files from the mystery metagenome
+that you will be assembling, annotating, describing and interpreting. The following four episodes
+(which are part of the Software Carpentry lesson ‘Introducing the Shell’ will help familiarise
+you with the Shell environment and introduce you to some of the tools needed for your first
+assessment.</p>
+
+<p>A typical shell window looks something like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yourname@jen:/disks/jen/data/mres/yourname$
+yourname@jen:/disks/jen/data/mres/yourname$ ls -F /
+Applications/         System/
+Library/              Users/
+Network/              Volumes/
+yourname@jen:/disks/jen/data/mres/yourname$
+</code></pre></div></div>
+
+<p>The first line shows only a <strong>prompt</strong>,
+indicating that the shell is waiting for input.
+Your shell may use different text for the prompt. Most importantly:
+when typing commands, either from these lessons or from other sources,
+<em>do not type the prompt</em>, only the commands that follow it.</p>
+
+<p>The part that you type,
+<code class="highlighter-rouge">ls -F /</code> in the second line of the example,
+typically has the following structure: a <strong>command</strong>,
+some <strong>flags</strong> (also called <strong>options</strong> or <strong>switches</strong>) and an <strong>argument</strong>.
+Flags start with a single dash (<code class="highlighter-rouge">-</code>) or two dashes (<code class="highlighter-rouge">--</code>), and change the behaviour of a command.
+Arguments tell the command what to operate on (e.g. files and directories).
+Sometimes flags and arguments are referred to as parameters.
+A command can be called with more than one flag and more than one argument: but a
+command doesn’t always require an argument or a flag.</p>
+
+<p>In the second line of the example above, our <strong>command</strong> is <code class="highlighter-rouge">ls</code>, with a <strong>flag</strong> <code class="highlighter-rouge">-F</code> and an
+<strong>argument</strong> <code class="highlighter-rouge">/</code>. Each part is separated by spaces: if you omit the space
+between <code class="highlighter-rouge">ls</code> and <code class="highlighter-rouge">-F</code> the shell will look for a command called <code class="highlighter-rouge">ls-F</code>, which
+doesn’t exist. Also, capitalization matters: <code class="highlighter-rouge">LS</code> is different to <code class="highlighter-rouge">ls</code>.</p>
+
+<p>Next we see the output that our command produced. In this case it is a listing
+of files and folders in a location called <code class="highlighter-rouge">/</code> - we’ll cover what all these mean
+later today. Those using a macOS might recognize the output in this example.</p>
+
+<p>Finally, the shell again prints the prompt and waits for you to type the next
+command.</p>
+
+<p>In the examples for this lesson, we’ll show the prompt as <code class="highlighter-rouge">$ </code>. You can make your
+prompt look the same by entering the command <code class="highlighter-rouge">PS1='$ '</code>. But you can also leave
+your prompt as it is - often the prompt includes useful information about who and where
+you are.</p>
+
+<p>Open a shell window and try entering <code class="highlighter-rouge">ls -F /</code> for yourself (don’t forget that spaces
+and capitalization are important!). You can change the prompt too, if you like.</p>
+
+<h3 id="how-does-the-shell-know-what-ls-and-its-flags-mean">How does the shell know what <code class="highlighter-rouge">ls</code> and its flags mean?</h3>
+
+<p>Every command is a program stored somewhere on the computer, and the shell keeps a
+list of places to search for commands (the list is in a <strong>variable</strong> called <code class="highlighter-rouge">PATH</code>,
+but those are concepts we’ll meet later and are not too important at the moment). Recall
+that commands, flags and arguments are separated by spaces.</p>
+
+<p>So let’s look at the REPL (read-evaluate-print loop) in more detail. Notice that the
+“evaluate” step is made of two parts:</p>
+
+<ol>
+  <li>Read what was typed (<code class="highlighter-rouge">ls -F /</code> in our example)
+ The shell uses the spaces to split the line into the command, flags, and arguments</li>
+  <li>Evaluate:
+ a. Find a program called <code class="highlighter-rouge">ls</code>
+ b. Execute it, passing it the flags and arguments (<code class="highlighter-rouge">-F</code> and <code class="highlighter-rouge">/</code>) to
+    interpret as the program sees fit</li>
+  <li>Print the output produced by the program</li>
+</ol>
+
+<p>and then print the prompt and wait for you to enter another command.</p>
+
+<blockquote class="callout">
+  <h2 id="command-not-found">Command not found</h2>
+  <p>If the shell can’t find a program whose name is the command you typed, it
+will print an erorr message like:</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ls-F
+</code></pre></div>  </div>
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-bash: ls-F: command not found
+</code></pre></div>  </div>
+
+  <p>Usually this means that you have mis-typed the command - in this case we omitted
+the space between <code class="highlighter-rouge">ls</code> and <code class="highlighter-rouge">-F</code>.</p>
+</blockquote>
+
+<h3 id="is-it-difficult">Is it difficult?</h3>
+
+<p>It is a different model of interacting than a GUI, and that
+will take some effort - and some time - to learn. A GUI
+presents you with choices and you select one. With a <strong>command line interface</strong> (CLI) the choices are combinations
+of commands and parameters, more like words in a language than buttons on a screen. They
+are not presented to you so
+you must learn a few, like learning some vocabulary in a new language. But a small
+number of commands gets you a long way, and we’ll cover those essential few today.</p>
+
+<h3 id="flexibility-and-automation">Flexibility and automation</h3>
+
+<p>The grammar of a shell allows you to combine existing tools into powerful
+pipelines and handle large volumes of data automatically. Sequences of
+commands can be written into a <em>script</em>, improving the reproducibility of
+workflows and allowing you to repeat them easily.</p>
+
+<p>In addition, the command line is often the easiest way to interact with remote machines and supercomputers.
+Familiarity with the shell is near essential to run a variety of specialized tools and resources
+including high-performance computing systems.
+As clusters and cloud computing systems become more popular for scientific data crunching,
+being able to interact with the shell is becoming a necessary skill.
+We can build on the command-line skills covered here
+to tackle a wide range of scientific questions and computational challenges.</p>
+
+<h2 id="your-pipeline-starting-point">Your Pipeline: Starting Point</h2>
+
+<p>You mission is to analyse metagenomics data generated from a mystery sample and provide evidence to suggest a likely source. The data was generated
+using targetted and random approaches and Next Generation Sequencing technology. You will need to:</p>
+
+<ol>
+  <li>Describe the size and quality of each component dataset,
+plan an analysis workflow for each of the different types of data,
+apply appropriate quality filtering techniques before assembly or clustering,
+use methods to cluster or bin the assembled data,
+Annotate and characterise the identity, and potential function of individual genes,
+genomes and species found in the data and analyse the data collectively to infer the
+likely source of the sample.</li>
+  <li>Systematically collect evidence to support your conclusions and test hypotheses using a range of relevant tools and databases with reference to the different taxa, adaptations and metabolic functions found in your dataset</li>
+  <li>Present your conclusions to the class as part of a presentation</li>
+</ol>
+
+<p>Metagenomics projects often involve sequencing and comparative analyses of many, many samples. For example,
+the Marine Microbes Project has collected over 5,000 community profiles into a central database, with each set of sequences contained in separate multiple files.
+Each raw sequence file contains on average 20,000-100,000 sequences, which all require quality checking, trimming and classification.</p>
+
+<p>The bad news is that if you had to do this by hand, and process each and every sequence through the web interface for NCBI, you’ll be here for a while.
+As an exercise, time how long it takes to BLAST a sequence through the NCBI interface, and then multiply the time taken to get a result by 20,000.</p>
+
+<p>The whole process will take more than 14 days (with no sleep) for one small amplicon dataset. Looks like you will be postponing your graduation…</p>
+
+<p>The next few lessons will explore what we should do instead.
+More specifically,
+they explain how we can use a command shell
+to automate the repetitive steps in our processing pipeline
+so that our computer can work 24 hours a day while we write the paper (and do other cool stuff that scientists need to do, like drink coffee, iron our labcoats, do field work, educate the public, save the world…)
+As a bonus,
+once we have put a processing pipeline together,
+we will be able to use it again whenever we collect more data.</p>
+
+
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+    <li><p>A shell is a program whose primary purpose is to read commands and run other programs.</p>
+</li>
+    
+    <li><p>The shell’s main advantages are its high action-to-keystroke ratio, its support for automating repetitive tasks, and its capacity to access networked machines.</p>
+</li>
+    
+    <li><p>The shell’s main disadvantages are its primarily textual nature and how cryptic its commands and operation can be.</p>
+</li>
+    
+  </ul>
+</blockquote>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../02-filedir/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      
+<footer>
+  <div class="row">
+    <div class="col-md-6 copyright" align="left">
+
+    </div>
+    <div class="col-md-6 help-links" align="right">
+	
+	<a href="/edit/gh-pages/_episodes/01-intro.md">Edit on GitHub</a>
+	
+	/
+	<a href="/blob/gh-pages/CONTRIBUTING.md">Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob/gh-pages/CITATION">Cite</a>
+	/
+	<a href="mailto:martin.ostrowski@mq.edu.au">Contact</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      Using <a href="https://github.com/carpentries/styles/">The Carpentries style</a>
+      version <a href="https://github.com/carpentries/styles/releases/tag/v9.5.3">9.5.3</a>.
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/lesson.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </body>
+</html>

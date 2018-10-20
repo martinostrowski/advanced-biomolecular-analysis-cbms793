@@ -1,0 +1,772 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2018-10-20 22:53:04 +1100">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/syntax.css" />
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <title>CBMS Advanced Biomolecular Analysis - Genomics: Pipes and Filters</title>
+  </head>
+  <body>
+
+    
+
+
+
+
+
+
+
+    <div class="container">
+      
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+
+      
+      <a class="navbar-brand" href="../index.html">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+
+        
+	
+        <li><a href="../setup.html">Setup</a></li>
+
+        
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a href="../01-intro/index.html">Introducing the Shell</a></li>
+            
+            <li><a href="../02-filedir/index.html">Navigating Files and Directories</a></li>
+            
+            <li><a href="../03-create/index.html">Working With Files and Directories</a></li>
+            
+            <li><a href="../04-pipefilter/index.html">Pipes and Filters</a></li>
+            
+            <li><a href="../06-Genome_assembly/index.html">Genome Assembly Workflow</a></li>
+            
+            <li><a href="../06-trimming/index.html">Trimming and Filtering</a></li>
+            
+            <li><a href="../07-meta-genome_assembly/index.html">Genome Assembly Workflow - Week 2</a></li>
+            
+            <li><a href="../08-assembly_mapping_and%20binning/index.html">Assembly Mapping and Binning</a></li>
+            
+            <li><a href="../09-annotation-of-genome-bins/index.html">Annotation of genome bins. Week 2-3</a></li>
+            
+            <li><a href="../12-taxonomic-assignment/index.html">Taxonomic assignment using LCA. Week 3-4</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="../aio.html">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../reference.html">Reference</a></li>
+            
+            <li><a href="../about/index.html">About</a></li>
+            
+            <li><a href="../discuss/index.html">Discussion</a></li>
+            
+            <li><a href="../figures/index.html">Figures</a></li>
+            
+            <li><a href="../guide/index.html">Instructor Notes</a></li>
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="../LICENSE.html">License</a></li>
+	
+	<li><a href="/edit/gh-pages/_episodes/04-pipefilter.md">Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../03-create/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+    <h3 class="maintitle"><a href="../">CBMS Advanced Biomolecular Analysis - Genomics</a></h3>
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../06-Genome_assembly/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+<article>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <h1 class="maintitle">Pipes and Filters</h1>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 25 min
+      <br/>
+      <strong>Exercises:</strong> 10 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>How can I combine existing commands to do new things?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>Redirect a command’s output to a file.</p>
+</li>
+	
+	<li><p>Process a file instead of keyboard input using redirection.</p>
+</li>
+	
+	<li><p>Construct command pipelines with two or more stages.</p>
+</li>
+	
+	<li><p>Explain what usually happens if a program or pipeline isn’t given any input to process.</p>
+</li>
+	
+	<li><p>Explain Unix’s ‘small pieces, loosely joined’ philosophy.</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<p>Now that we know a few basic commands,
+we can finally look at the shell’s most powerful feature:
+the ease with which it lets us combine existing programs in new ways.
+We’ll start with a directory called <code class="highlighter-rouge">genomes</code>
+that contains five files describing a draft <em>Synechococcus</em> genome (Everyone’s favourite cyanobacteria).
+The <code class="highlighter-rouge">.f??</code> extension indicates that these files are fasta-formatted and contain, genome sequences, gene sequences or protein sequences.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">ls </span>genomes
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>backup  HB1133_20170901.faa  HB1133_20170901.faa.v.crak.out  HB1133_20170901.ffn  HB1133_20170901.fna  HB1133_20170901.fsa  report
+</code></pre></div></div>
+
+<p>Let’s go into that directory with <code class="highlighter-rouge">cd</code> and run the command <code class="highlighter-rouge">wc *.faa</code>.
+<code class="highlighter-rouge">wc</code> is the “word count” command:
+it counts the number of lines, words, and characters in files (from left to right, in that order).</p>
+
+<p>The <code class="highlighter-rouge">*</code> in <code class="highlighter-rouge">*.faa</code> matches zero or more characters,
+so the shell turns <code class="highlighter-rouge">*.faa</code> into a list of all <code class="highlighter-rouge">.faa</code> files in the current directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>genomes
+<span class="nv">$ </span><span class="nb">wc</span> <span class="nt">-l</span> <span class="k">*</span>.faa
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>15787 HB1133_20170901.faa
+</code></pre></div></div>
+
+<p>But why do this one file at a time? We can use wild cards to process all of the fasta files at  once</p>
+
+<p>If we run <code class="highlighter-rouge">wc -l *.f??</code> instead of just <code class="highlighter-rouge">wc -l *.faa</code>,
+the output shows only the number of lines per file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> <span class="k">*</span>.f??
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  15787 HB1133_20170901.faa
+  39662 HB1133_20170901.ffn
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+ 134545 total
+</code></pre></div></div>
+
+<p>We can also use <code class="highlighter-rouge">-w</code> to get only the number of words,
+or <code class="highlighter-rouge">-c</code> to get only the number of characters.</p>
+
+<p>Which of these files is shortest?
+It’s an easy question to answer when there are only six files,
+but what if there were 6000?
+Our first step toward a solution is to run the command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">wc</span> <span class="nt">-l</span> <span class="k">*</span>.f?? <span class="o">&gt;</span> lengths.txt
+</code></pre></div></div>
+
+<p>The greater than symbol, <code class="highlighter-rouge">&gt;</code>, tells the shell to <strong>redirect</strong> the command’s output
+to a file instead of printing it to the screen. (This is why there is no screen output:
+everything that <code class="highlighter-rouge">wc</code> would have printed has gone into the
+file <code class="highlighter-rouge">lengths.txt</code> instead.)  The shell will create
+the file if it doesn’t exist. If the file exists, it will be
+silently overwritten, which may lead to data loss and thus requires
+some caution.
+<code class="highlighter-rouge">ls lengths.txt</code> confirms that the file exists:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">ls </span>lengths.txt
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lengths.txt
+</code></pre></div></div>
+
+<p>We can now send the content of <code class="highlighter-rouge">lengths.txt</code> to the screen using <code class="highlighter-rouge">cat lengths.txt</code>.
+<code class="highlighter-rouge">cat</code> stands for “concatenate”:
+it prints the contents of files one after another.
+There’s only one file in this case,
+so <code class="highlighter-rouge">cat</code> just shows us what it contains:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>lengths.txt
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  15787 HB1133_20170901.faa
+  39662 HB1133_20170901.ffn
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+ 134545 total
+</code></pre></div></div>
+
+<blockquote class="callout">
+  <h2 id="output-page-by-page">Output Page by Page</h2>
+
+  <p>We’ll continue to use <code class="highlighter-rouge">cat</code> in this lesson, for convenience and consistency,
+but it has the disadvantage that it always dumps the whole file onto your screen.
+More useful in practice is the command <code class="highlighter-rouge">less</code>,
+which you use with <code class="highlighter-rouge">$ less lengths.txt</code>.
+This displays a screenful of the file, and then stops.
+You can go forward one screenful by pressing the spacebar,
+or back one by pressing <code class="highlighter-rouge">b</code>.  Press <code class="highlighter-rouge">q</code> to quit.</p>
+</blockquote>
+
+<p>Now let’s use the <code class="highlighter-rouge">sort</code> command to sort its contents.</p>
+
+<blockquote class="challenge">
+  <h2 id="what-does-sort--n-do">What Does <code class="highlighter-rouge">sort -n</code> Do?</h2>
+
+  <p>If we run <code class="highlighter-rouge">sort</code> on a file containing the following lines:</p>
+
+  <div class="source highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10
+2
+19
+22
+6
+</code></pre></div>  </div>
+
+  <p>the output is:</p>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10
+19
+2
+22
+6
+</code></pre></div>  </div>
+
+  <p>If we run <code class="highlighter-rouge">sort -n</code> on the same input, we get this instead:</p>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+6
+10
+19
+22
+</code></pre></div>  </div>
+
+  <p>Explain why <code class="highlighter-rouge">-n</code> has this effect.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+    <p>The <code class="highlighter-rouge">-n</code> flag specifies a numeric sort, rather than alphabetical.</p>
+  </blockquote>
+</blockquote>
+
+<p>We will also use the <code class="highlighter-rouge">-n</code> flag to specify that the sort is
+numerical instead of alphabetical.
+This does <em>not</em> change the file;
+instead, it sends the sorted result to the screen:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sort</span> <span class="nt">-n</span> lengths.txt
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  15787 HB1133_20170901.faa
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+  39662 HB1133_20170901.ffn
+ 134545 total
+</code></pre></div></div>
+
+<p>We can put the sorted list of lines in another temporary file called <code class="highlighter-rouge">sorted-lengths.txt</code>
+by putting <code class="highlighter-rouge">&gt; sorted-lengths.txt</code> after the command,
+just as we used <code class="highlighter-rouge">&gt; lengths.txt</code> to put the output of <code class="highlighter-rouge">wc</code> into <code class="highlighter-rouge">lengths.txt</code>.
+Once we’ve done that,
+we can run another command called <code class="highlighter-rouge">head</code> to get the first few lines in <code class="highlighter-rouge">sorted-lengths.txt</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sort</span> <span class="nt">-n</span> lengths.txt <span class="o">&gt;</span> sorted-lengths.txt
+<span class="nv">$ </span><span class="nb">head</span> <span class="nt">-n</span> 1 sorted-lengths.txt
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>15787 HB1133_20170901.faa
+</code></pre></div></div>
+
+<p>Using <code class="highlighter-rouge">-n 1</code> with <code class="highlighter-rouge">head</code> tells it that
+we only want the first line of the file;
+<code class="highlighter-rouge">-n 20</code> would get the first 20,
+and so on.
+Since <code class="highlighter-rouge">sorted-lengths.txt</code> contains the lengths of our files ordered from least to greatest,
+the output of <code class="highlighter-rouge">head</code> must be the file with the fewest lines.</p>
+
+<blockquote class="callout">
+  <h2 id="redirecting-to-the-same-file">Redirecting to the same file</h2>
+
+  <p>It’s a very bad idea to try redirecting
+the output of a command that operates on a file
+to the same file. For example:</p>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sort</span> <span class="nt">-n</span> lengths.txt <span class="o">&gt;</span> lengths.txt
+</code></pre></div>  </div>
+
+  <p>Doing something like this may give you
+incorrect results and/or delete
+the contents of <code class="highlighter-rouge">lengths.txt</code>.</p>
+</blockquote>
+
+<p>If you think this is confusing,
+you’re in good company:
+even once you understand what <code class="highlighter-rouge">wc</code>, <code class="highlighter-rouge">sort</code>, and <code class="highlighter-rouge">head</code> do,
+all those intermediate files make it hard to follow what’s going on.
+We can make it easier to understand by running <code class="highlighter-rouge">sort</code> and <code class="highlighter-rouge">head</code> together:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sort</span> <span class="nt">-n</span> lengths.txt | <span class="nb">head</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>15787 HB1133_20170901.faa
+</code></pre></div></div>
+
+<p>The vertical bar, <code class="highlighter-rouge">|</code>, between the two commands is called a <strong>pipe</strong>.
+It tells the shell that we want to use
+the output of the command on the left
+as the input to the command on the right.
+The computer might create a temporary file if it needs to,
+or copy data from one program to the other in memory,
+or something else entirely;
+we don’t have to know or care.</p>
+
+<p>Nothing prevents us from chaining pipes consecutively.
+That is, we can for example send the output of <code class="highlighter-rouge">wc</code> directly to <code class="highlighter-rouge">sort</code>,
+and then the resulting output to <code class="highlighter-rouge">head</code>.
+Thus we first use a pipe to send the output of <code class="highlighter-rouge">wc</code> to <code class="highlighter-rouge">sort</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">wc</span> <span class="nt">-l</span> <span class="k">*</span>.f?? | <span class="nb">sort</span> <span class="nt">-n</span>
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  15787 HB1133_20170901.faa
+  39548 HB1133_20170901.fna
+  39548 HB1133_20170901.fsa
+  39662 HB1133_20170901.ffn
+ 134545 total
+</code></pre></div></div>
+
+<p>And now we send the output of this pipe, through another pipe, to <code class="highlighter-rouge">head</code>, so that the full pipeline becomes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">wc</span> <span class="nt">-l</span> <span class="k">*</span>.f?? | <span class="nb">sort</span> <span class="nt">-n</span> | <span class="nb">head</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   15787 HB1133_20170901.faa
+</code></pre></div></div>
+
+<p>This is exactly like a mathematician nesting functions like <em>log(3x)</em>
+and saying “the log of three times <em>x</em>”.
+In our case,
+the calculation is “head of sort of line count of <code class="highlighter-rouge">*.f??</code>”.</p>
+
+<p>Let’s do something useful with these commands, like count the number of sequences in each file.
+To do this we need one more trick <code class="highlighter-rouge">grep</code>, a pattern matching function. Each sequence in a fasta file is composed of a header denoted by a <code class="highlighter-rouge">&gt;</code> at the start of the line, followed the the sequence on a new line.
+We can use <code class="highlighter-rouge">grep</code> to find only the header lines in a fasta file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">grep</span> <span class="s1">'&gt;'</span> HB1133_20170901.fna
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;Syn_HB1133_58
+&gt;Syn_HB1133_7
+&gt;Syn_HB1133_3
+&gt;Syn_HB1133_11
+&gt;Syn_HB1133_18
+&gt;Syn_HB1133_54
+&gt;Syn_HB1133_198
+&gt;Syn_HB1133_68
+&gt;Syn_HB1133_177
+&gt;Syn_HB1133_174
+
+</code></pre></div></div>
+
+<p>We can also add an option flag to <code class="highlighter-rouge">-c</code> to the command that will count the number of occurrences</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-c</span> <span class="s1">'&gt;'</span> HB1133_20170901.fna
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10
+
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="retrieving-counts-from-multiple-files">Retrieving counts from multiple files</h2>
+
+  <p>In our current directory, we want to find the number of sequences in each of the fasta files</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+    <p>The solution is to use a wildcard</p>
+
+    <p>grep -c ‘&gt;’ HB1133_20170901.f??</p>
+
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="piping-commands-together">Piping Commands Together</h2>
+
+  <p>In our current directory, we want to find the 3 files which have the least number of
+seqences. Which command listed below would work?</p>
+
+  <ol>
+    <li><code class="highlighter-rouge">grep -c '&gt;' HB1133_20170901.f?? &gt; sort -n &gt; head -n 3</code></li>
+    <li><code class="highlighter-rouge">grep -c '&gt;' HB1133_20170901.f?? | sort -n | head -n 1-3</code></li>
+    <li><code class="highlighter-rouge">grep -c '&gt;' HB1133_20170901.f?? | head -n 3 | sort -n</code></li>
+    <li><code class="highlighter-rouge">grep -c '&gt;' HB1133_20170901.f?? | sort -n | head -n 3</code></li>
+  </ol>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+    <p>Option 4 is the solution.
+The pipe character <code class="highlighter-rouge">|</code> is used to feed the standard output from one process to
+the standard input of another.
+<code class="highlighter-rouge">&gt;</code> is used to redirect standard output to a file.</p>
+  </blockquote>
+</blockquote>
+
+<p>Here’s what actually happens behind the scenes when we create a pipe.
+When a computer runs a program — any program — it creates a <strong>process</strong>
+in memory to hold the program’s software and its current state.
+Every process has an input channel called <strong>standard input</strong>.
+(By this point, you may be surprised that the name is so memorable, but don’t worry:
+most Unix programmers call it “stdin”).
+Every process also has a default output channel called <strong>standard output</strong>
+(or “stdout”). A second output channel called <strong>standard error</strong> (stderr) also
+exists. This channel is typically used for error or diagnostic messages, and it
+allows a user to pipe the output of one program into another while still receiving
+error messages in the terminal.</p>
+
+<p>The shell is actually just another program.
+Under normal circumstances,
+whatever we type on the keyboard is sent to the shell on its standard input,
+and whatever it produces on standard output is displayed on our screen.
+When we tell the shell to run a program,
+it creates a new process
+and temporarily sends whatever we type on our keyboard to that process’s standard input,
+and whatever the process sends to standard output to the screen.</p>
+
+<p>Here’s what happens when we run <code class="highlighter-rouge">wc -l *.fna &gt; lengths.txt</code>.
+The shell starts by telling the computer to create a new process to run the <code class="highlighter-rouge">wc</code> program.
+Since we’ve provided some filenames as arguments,
+<code class="highlighter-rouge">wc</code> reads from them instead of from standard input.
+And since we’ve used <code class="highlighter-rouge">&gt;</code> to redirect output to a file,
+the shell connects the process’s standard output to that file.</p>
+
+<p>If we run <code class="highlighter-rouge">wc -l *.fna | sort -n</code> instead,
+the shell creates two processes
+(one for each process in the pipe)
+so that <code class="highlighter-rouge">wc</code> and <code class="highlighter-rouge">sort</code> run simultaneously.
+The standard output of <code class="highlighter-rouge">wc</code> is fed directly to the standard input of <code class="highlighter-rouge">sort</code>;
+since there’s no redirection with <code class="highlighter-rouge">&gt;</code>,
+<code class="highlighter-rouge">sort</code>’s output goes to the screen.
+And if we run <code class="highlighter-rouge">wc -l *.fna | sort -n | head -n 1</code>,
+we get three processes with data flowing from the files,
+through <code class="highlighter-rouge">wc</code> to <code class="highlighter-rouge">sort</code>,
+and from <code class="highlighter-rouge">sort</code> through <code class="highlighter-rouge">head</code> to the screen.</p>
+
+<p><img src="../fig/redirects-and-pipes.png" alt="Redirects and Pipes" /></p>
+
+<p>This simple idea is why Unix has been so successful.
+Instead of creating enormous programs that try to do many different things,
+Unix programmers focus on creating lots of simple tools that each do one job well,
+and that work well with each other.
+This programming model is called “pipes and filters”.
+We’ve already seen pipes;
+a <strong>filter</strong> is a program like <code class="highlighter-rouge">wc</code> or <code class="highlighter-rouge">sort</code>
+that transforms a stream of input into a stream of output.
+Almost all of the standard Unix tools can work this way:
+unless told to do otherwise,
+they read from standard input,
+do something with what they’ve read,
+and write to standard output.</p>
+
+<p>The key is that any program that reads lines of text from standard input
+and writes lines of text to standard output
+can be combined with every other program that behaves this way as well.
+You can <em>and should</em> write your programs this way
+so that you and other people can put those programs into pipes to multiply their power.</p>
+
+<blockquote class="callout">
+  <h2 id="redirecting-input">Redirecting Input</h2>
+
+  <p>As well as using <code class="highlighter-rouge">&gt;</code> to redirect a program’s output, we can use <code class="highlighter-rouge">&lt;</code> to
+redirect its input, i.e., to read from a file instead of from standard
+input. For example, instead of writing <code class="highlighter-rouge">wc HB1133_20170901.fna</code>, we could write
+<code class="highlighter-rouge">wc &lt; HB1133_20170901.fna</code>. In the first case, <code class="highlighter-rouge">wc</code> gets a command line
+argument telling it what file to open. In the second, <code class="highlighter-rouge">wc</code> doesn’t have
+any command line arguments, so it reads from standard input, but we
+have told the shell to send the contents of <code class="highlighter-rouge">HB1133_20170901.fna</code> to <code class="highlighter-rouge">wc</code>’s
+standard input.</p>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="wildcard-expressions">Wildcard Expressions</h2>
+
+  <p>Wildcard expressions can be very complex, but you can sometimes write
+them in ways that only use simple syntax, at the expense of being a bit
+more verbose.
+Consider the directory <code class="highlighter-rouge">genomes/</code> :
+the wildcard expression <code class="highlighter-rouge">*.f[sfa]a</code>
+matches all files ending in <code class="highlighter-rouge">.fna</code> or <code class="highlighter-rouge">.faa</code> or <code class="highlighter-rouge">.fsa</code>. Imagine you forgot about
+this.</p>
+
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="removing-unneeded-files">Removing Unneeded Files</h2>
+
+  <p>Suppose you want to delete your processed data files, and only keep
+your raw files and processing script to save storage.
+The raw files end in <code class="highlighter-rouge">.dat</code> and the processed files end in <code class="highlighter-rouge">.txt</code>.
+Which of the following would remove all the processed data files,
+and <em>only</em> the processed data files?</p>
+
+  <ol>
+    <li><code class="highlighter-rouge">rm ?.txt</code></li>
+    <li><code class="highlighter-rouge">rm *.txt</code></li>
+    <li><code class="highlighter-rouge">rm * .txt</code></li>
+    <li><code class="highlighter-rouge">rm *.*</code></li>
+  </ol>
+
+  <blockquote class="solution">
+    <h2 id="solution-3">Solution</h2>
+    <ol>
+      <li>This would remove <code class="highlighter-rouge">.txt</code> files with one-character names</li>
+      <li>This is correct answer</li>
+      <li>The shell would expand <code class="highlighter-rouge">*</code> to match everything in the current directory,
+so the command would try to remove all matched files and an additional
+file called <code class="highlighter-rouge">.txt</code></li>
+      <li>The shell would expand <code class="highlighter-rouge">*.*</code> to match all files with any extension,
+so this command would delete all files</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+    <li><p><code class="highlighter-rouge">cat</code> displays the contents of its inputs.</p>
+</li>
+    
+    <li><p><code class="highlighter-rouge">head</code> displays the first 10 lines of its input.</p>
+</li>
+    
+    <li><p><code class="highlighter-rouge">tail</code> displays the last 10 lines of its input.</p>
+</li>
+    
+    <li><p><code class="highlighter-rouge">sort</code> sorts its inputs.</p>
+</li>
+    
+    <li><p><code class="highlighter-rouge">wc</code> counts lines, words, and characters in its inputs.</p>
+</li>
+    
+    <li><p><code class="highlighter-rouge">command &gt; file</code> redirects a command’s output to a file.</p>
+</li>
+    
+    <li><p><code class="highlighter-rouge">first | second</code> is a pipeline: the output of the first command is used as the input to the second.</p>
+</li>
+    
+    <li><p>The best way to use the shell is to use pipes to combine simple single-purpose programs (filters).</p>
+</li>
+    
+  </ul>
+</blockquote>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../03-create/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../06-Genome_assembly/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      
+<footer>
+  <div class="row">
+    <div class="col-md-6 copyright" align="left">
+
+    </div>
+    <div class="col-md-6 help-links" align="right">
+	
+	<a href="/edit/gh-pages/_episodes/04-pipefilter.md">Edit on GitHub</a>
+	
+	/
+	<a href="/blob/gh-pages/CONTRIBUTING.md">Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob/gh-pages/CITATION">Cite</a>
+	/
+	<a href="mailto:martin.ostrowski@mq.edu.au">Contact</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      Using <a href="https://github.com/carpentries/styles/">The Carpentries style</a>
+      version <a href="https://github.com/carpentries/styles/releases/tag/v9.5.3">9.5.3</a>.
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/lesson.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </body>
+</html>

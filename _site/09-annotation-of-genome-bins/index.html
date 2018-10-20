@@ -1,0 +1,771 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="last-modified" content="2018-10-20 22:53:04 +1100">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- meta "search-domain" used for google site search function google_search() -->
+    <meta name="search-domain" value="">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/lesson.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/syntax.css" />
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <title>CBMS Advanced Biomolecular Analysis - Genomics: Annotation of genome bins. Week 2-3</title>
+  </head>
+  <body>
+
+    
+
+
+
+
+
+
+
+    <div class="container">
+      
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+
+      
+      <a class="navbar-brand" href="../index.html">Home</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+
+        
+	
+        <li><a href="../setup.html">Setup</a></li>
+
+        
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a href="../01-intro/index.html">Introducing the Shell</a></li>
+            
+            <li><a href="../02-filedir/index.html">Navigating Files and Directories</a></li>
+            
+            <li><a href="../03-create/index.html">Working With Files and Directories</a></li>
+            
+            <li><a href="../04-pipefilter/index.html">Pipes and Filters</a></li>
+            
+            <li><a href="../06-Genome_assembly/index.html">Genome Assembly Workflow</a></li>
+            
+            <li><a href="../06-trimming/index.html">Trimming and Filtering</a></li>
+            
+            <li><a href="../07-meta-genome_assembly/index.html">Genome Assembly Workflow - Week 2</a></li>
+            
+            <li><a href="../08-assembly_mapping_and%20binning/index.html">Assembly Mapping and Binning</a></li>
+            
+            <li><a href="../09-annotation-of-genome-bins/index.html">Annotation of genome bins. Week 2-3</a></li>
+            
+            <li><a href="../12-taxonomic-assignment/index.html">Taxonomic assignment using LCA. Week 3-4</a></li>
+            
+	    <li role="separator" class="divider"></li>
+            <li><a href="../aio.html">All in one page (Beta)</a></li>
+          </ul>
+        </li>
+	
+
+	
+	
+        <li class="dropdown">
+          <a href="../" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Extras <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../reference.html">Reference</a></li>
+            
+            <li><a href="../about/index.html">About</a></li>
+            
+            <li><a href="../discuss/index.html">Discussion</a></li>
+            
+            <li><a href="../figures/index.html">Figures</a></li>
+            
+            <li><a href="../guide/index.html">Instructor Notes</a></li>
+            
+          </ul>
+        </li>
+	
+
+	
+        <li><a href="../LICENSE.html">License</a></li>
+	
+	
+	<li><a href="/edit/gh-pages/_episodes_rmd/09-annotation-of-genome-bins.Rmd">Improve this page <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+	
+	
+      </ul>
+      <form class="navbar-form navbar-right" role="search" id="search" onsubmit="google_search(); return false;">
+        <div class="form-group">
+          <input type="text" id="google-search" placeholder="Search..." aria-label="Google site search">
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../08-assembly_mapping_and%20binning/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+    <h3 class="maintitle"><a href="../">CBMS Advanced Biomolecular Analysis - Genomics</a></h3>
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../12-taxonomic-assignment/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+<article>
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <h1 class="maintitle">Annotation of genome bins. Week 2-3</h1>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+
+
+<blockquote class="objectives">
+  <h2>Overview</h2>
+
+  <div class="row">
+    <div class="col-md-3">
+      <strong>Teaching:</strong> 20 min
+      <br/>
+      <strong>Exercises:</strong> 40 min
+    </div>
+    <div class="col-md-9">
+      <strong>Questions</strong>
+      <ul>
+	
+	<li><p>How to annotate genes in a set of contigs?</p>
+</li>
+	
+	<li><p>How can I perform the same actions on many different files?</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      <strong>Objectives</strong>
+      <ul>
+	
+	<li><p>Further develop your genome assembly workflow</p>
+</li>
+	
+	<li><p>Identify databases that could serve as sources of taxonomic and functional information for your sequences</p>
+</li>
+	
+	<li><p>Learn how to repeat commands and processes tens, hundreds or thousands of files using loops</p>
+</li>
+	
+	<li><p>Write a loop that applies one or more commands separately to each file in a set of files.</p>
+</li>
+	
+	<li><p>Use an automated genome annotation pipeline ‘PROKKA’</p>
+</li>
+	
+      </ul>
+    </div>
+  </div>
+
+</blockquote>
+
+<h2 id="completed-metagenome-assembly-illumina-paired-end-sequences-metabat-bins">Completed Metagenome assembly, illumina Paired end sequences, Metabat bins</h2>
+
+<p>We have limitless options for annotating our metagenome, and metagenome bins. The standard
+workflow involves</p>
+<ol>
+  <li>predict rRNA and tRNA</li>
+  <li>predict open reading frames</li>
+  <li>compare open reading frames against a database, or databases
+    <ul>
+      <li>extract functional annotations by homology</li>
+      <li>classify or assign taxonomic information using Last Common Ancestor or similar</li>
+    </ul>
+  </li>
+</ol>
+
+<p>To kick start the annotation we are going to use <a href="https://github.com/tseemann/prokka">PROKKA</a> written an maintained by
+Torsten Seeman
+Seemann T.
+Prokka: rapid prokaryotic genome annotation
+Bioinformatics 2014 Jul 15;30(14):2068-9. PMID:24642063</p>
+
+<p>What does <a href="https://github.com/tseemann/prokka">PROKKA do?</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prokka
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prokka
+Name:
+  Prokka 1.13.3 by Torsten Seemann &lt;torsten.seemann@gmail.com&gt;
+Synopsis:
+  rapid bacterial genome annotation
+Usage:
+  prokka [options] &lt;contigs.fasta&gt;
+General:
+  --help             This help
+  --version          Print version and exit
+  --docs             Show full manual/documentation
+  --citation         Print citation for referencing Prokka
+  --quiet            No screen output (default OFF)
+  --debug            Debug mode: keep all temporary files (default OFF)
+Setup:
+  --dbdir [X]        Prokka database root folders (default '/disks/jen/data/db/prokka_db')
+  --listdb           List all configured databases
+  --setupdb          Index all installed databases
+  --cleandb          Remove all database indices
+  --depends          List all software dependencies
+Outputs:
+  --outdir [X]       Output folder [auto] (default '')
+  --force            Force overwriting existing output folder (default OFF)
+  --prefix [X]       Filename output prefix [auto] (default '')
+  --addgenes         Add 'gene' features for each 'CDS' feature (default OFF)
+  --addmrna          Add 'mRNA' features for each 'CDS' feature (default OFF)
+  --locustag [X]     Locus tag prefix [auto] (default '')
+  --increment [N]    Locus tag counter increment (default '1')
+  --gffver [N]       GFF version (default '3')
+  --compliant        Force Genbank/ENA/DDJB compliance: --addgenes --mincontiglen 200 --centre XXX (default OFF)
+  --centre [X]       Sequencing centre ID. (default '')
+  --accver [N]       Version to put in Genbank file (default '1')
+Organism details:
+  --genus [X]        Genus name (default 'Genus')
+  --species [X]      Species name (default 'species')
+  --strain [X]       Strain name (default 'strain')
+  --plasmid [X]      Plasmid name or identifier (default '')
+Annotations:
+  --kingdom [X]      Annotation mode: Archaea|Bacteria|Bacteria|Bacteria|Mitochondria|Viruses (default 'Bacteria')
+  --gcode [N]        Genetic code / Translation table (set if --kingdom is set) (default '0')
+  --gram [X]         Gram: -/neg +/pos (default '')
+  --usegenus         Use genus-specific BLAST databases (needs --genus) (default OFF)
+  --proteins [X]     FASTA or GBK file to use as 1st priority (default '')
+  --hmms [X]         Trusted HMM to first annotate from (default '')
+  --metagenome       Improve gene predictions for highly fragmented genomes (default OFF)
+  --rawproduct       Do not clean up /product annotation (default OFF)
+  --cdsrnaolap       Allow [tr]RNA to overlap CDS (default OFF)
+Matching:
+  --evalue [n.n]     Similarity e-value cut-off (default '1e-09')
+  --coverage [n.n]   Minimum coverage on query protein (default '80')
+Computation:
+  --cpus [N]         Number of CPUs to use [0=all] (default '8')
+  --fast             Fast mode - only use basic BLASTP databases (default OFF)
+  --noanno           For CDS just set /product="unannotated protein" (default OFF)
+  --mincontiglen [N] Minimum contig size [NCBI needs 200] (default '1')
+  --rfam             Enable searching for ncRNAs with Infernal+Rfam (SLOW!) (default '0')
+  --norrna           Don't run rRNA search (default OFF)
+  --notrna           Don't run tRNA search (default OFF)
+  --rnammer          Prefer RNAmmer over Barrnap for rRNA prediction (default OFF)
+</code></pre></div></div>
+
+<p>Lets try prokka on your favorite metabat bin</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+/usr/local/anaconda2/bin/prokka bin.1.fa <span class="nt">-o</span> bin.1.prokka.out
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[21:49:51] This is prokka 1.13.3
+[21:49:51] Written by Torsten Seemann &lt;torsten.seemann@gmail.com&gt;
+[21:49:51] Homepage is https://github.com/tseemann/prokka
+[21:49:51] Local time is Sat Oct 20 21:49:51 2018
+[21:49:51] You are ndebono
+[21:49:51] Operating system is linux
+[21:49:51] You have BioPerl 1.007002
+[21:49:51] System has 30 cores.
+[21:49:51] Will use maximum of 8 cores.
+[21:49:51] Annotating as &gt;&gt;&gt; Bacteria &lt;&lt;&lt;
+[21:49:51] Generating locus_tag from 'bin.1.fasta' contents.
+[21:49:51] Setting --locustag EPFKBDBI from MD5 e9f4bdb2f5963fdabe8b08d5cdd4997f
+[21:49:51] Creating new output folder: /disks/jen/data/mres/ndebono/bin.1.prokka.out
+[21:49:51] Running: mkdir -p \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out
+[21:49:51] Using filename prefix: PROKKA_10202018.XXX
+[21:49:51] Setting HMMER_NCPU=1
+[21:49:51] Writing log to: /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.log
+[21:49:51] Command: /usr/local/anaconda2/bin/prokka bin.1.fasta -o /disks/jen/data/mres/ndebono/bin.1.prokka.out
+[21:49:51] Appending to PATH: /usr/local/anaconda2/bin
+[21:49:51] Looking for 'aragorn' - found /usr/local/anaconda2/bin/aragorn
+[21:49:51] Determined aragorn version is 1.2
+[21:49:51] Looking for 'barrnap' - found /usr/local/anaconda2/bin/barrnap
+[21:49:51] Determined barrnap version is 0.9
+[21:49:51] Looking for 'blastp' - found /usr/local/anaconda2/bin/blastp
+[21:49:53] Determined blastp version is 2.7
+[21:49:53] Looking for 'cmpress' - found /usr/local/anaconda2/bin/cmpress
+[21:49:53] Determined cmpress version is 1.1
+[21:49:53] Looking for 'cmscan' - found /usr/local/anaconda2/bin/cmscan
+[21:49:54] Determined cmscan version is 1.1
+[21:49:54] Looking for 'egrep' - found /bin/egrep
+[21:49:54] Looking for 'find' - found /usr/bin/find
+[21:49:54] Looking for 'grep' - found /bin/grep
+[21:49:54] Looking for 'hmmpress' - found /usr/local/anaconda2/bin/hmmpress
+[21:49:54] Determined hmmpress version is 3.2
+[21:49:54] Looking for 'hmmscan' - found /usr/local/anaconda2/bin/hmmscan
+[21:49:54] Determined hmmscan version is 3.2
+[21:49:54] Looking for 'java' - found /usr/local/anaconda2/bin/java
+[21:49:54] Looking for 'less' - found /usr/bin/less
+[21:49:54] Looking for 'makeblastdb' - found /usr/local/anaconda2/bin/makeblastdb
+[21:49:54] Determined makeblastdb version is 2.7
+[21:49:54] Looking for 'minced' - found /usr/local/anaconda2/bin/minced
+[21:49:54] Determined minced version is 3.0
+[21:49:54] Looking for 'parallel' - found /usr/local/anaconda2/bin/parallel
+[21:49:55] Determined parallel version is 20180922
+[21:49:55] Looking for 'prodigal' - found /usr/local/anaconda2/bin/prodigal
+[21:49:55] Determined prodigal version is 2.6
+[21:49:55] Looking for 'prokka-genbank_to_fasta_db' - found /usr/local/anaconda2/bin/prokka-genbank_to_fasta_db
+[21:49:55] Looking for 'sed' - found /bin/sed
+[21:49:55] Looking for 'tbl2asn' - found /usr/local/anaconda2/bin/tbl2asn
+[21:49:55] Determined tbl2asn version is 25.6
+[21:49:55] Using genetic code table 11.
+[21:49:55] Loading and checking input file: bin.1.fasta
+[21:49:55] Wrote 285 contigs totalling 2014340 bp.
+[21:49:55] Predicting tRNAs and tmRNAs
+[21:49:55] Running: aragorn -l -gc11  -w \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/PROKKA_10202018\.fna
+[21:49:56] 1 tRNA-His c[3772,3847] 34 (gtg)
+[21:49:56] 2 tRNA-Arg c[3931,4007] 35 (tct)
+[21:49:56] 1 tRNA-Phe [15375,15450] 34 (gaa)
+[21:49:56] 1 tRNA-Asn c[3950,4025] 34 (gtt)
+[21:49:56] 1 tRNA-SeC [4866,4958] 36 (tca)
+[21:49:56] 1 tRNA-Val [7549,7624] 34 (tac)
+[21:49:56] 2 tRNA-Asp [7669,7745] 35 (gtc)
+[21:49:56] 1 tRNA-Cys c[6053,6126] 33 (gca)
+[21:49:56] 1 tRNA-Lys c[5106,5181] 34 (ttt)
+[21:49:56] 1 tRNA-Arg [15045,15120] 35 (cct)
+[21:49:56] 1 tRNA-Gly [8092,8167] 34 (gcc)
+[21:49:56] 1 tRNA-Ala c[6062,6137] 34 (ggc)
+[21:49:56] 1 tRNA-Met c[4191,4267] 35 (cat)
+[21:49:56] 2 tRNA-Leu c[4336,4422] 35 (gag)
+[21:49:56] 1 tRNA-Met [2326,2402] 35 (cat)
+[21:49:56] 1 tRNA-Gln c[2699,2773] 33 (ttg)
+[21:49:56] 1 tRNA-Arg [10934,11010] 35 (tcg)
+[21:49:56] Found 17 tRNAs
+[21:49:56] Predicting Ribosomal RNAs
+[21:49:56] Running Barrnap with 8 threads
+[21:49:58] Found 0 rRNAs
+[21:49:58] Skipping ncRNA search, enable with --rfam if desired.
+[21:49:58] Total of 17 tRNA + rRNA features
+[21:49:58] Searching for CRISPR repeats
+[21:49:58] Found 0 CRISPRs
+[21:49:58] Predicting coding sequences
+[21:49:58] Contigs total 2014340 bp, so using single mode
+[21:49:58] Running: prodigal -i \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/PROKKA_10202018\.fna -c -m -g 11 -p single -f sco -q
+[21:50:00] Excluding CDS which overlaps existing RNA (tRNA) at k141_353983:4132..4371 on - strand
+[21:50:00] Found 1884 CDS
+[21:50:00] Connecting features back to sequences
+[21:50:00] Not using genus-specific database. Try --usegenus to enable it.
+[21:50:00] Annotating CDS, please be patient.
+[21:50:00] Will use 8 CPUs for similarity searching.
+[21:50:01] There are still 1884 unannotated CDS left (started with 1884)
+[21:50:01] Will use blast to search against /disks/jen/data/db/prokka_db/kingdom/Bacteria/IS with 8 CPUs
+[21:50:01] Running: cat \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/IS\.faa | parallel --gnu --plain -j 8 --block 35837 --recstart '&gt;' --pipe blastp -query - -db /disks/jen/data/db/prokka_db/kingdom/Bacteria/IS -evalue 1e-30 -qcov_hsp_perc 90 -num_threads 1 -num_descriptions 1 -num_alignments 1 -seg no &gt; \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/IS\.blast 2&gt; /dev/null
+[21:50:06] Deleting unwanted file: /disks/jen/data/mres/ndebono/bin.1.prokka.out/IS.faa
+[21:50:06] Deleting unwanted file: /disks/jen/data/mres/ndebono/bin.1.prokka.out/IS.blast
+[21:50:07] There are still 1884 unannotated CDS left (started with 1884)
+[21:50:07] Will use blast to search against /disks/jen/data/db/prokka_db/kingdom/Bacteria/AMR with 8 CPUs
+[21:50:07] Running: cat \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/AMR\.faa | parallel --gnu --plain -j 8 --block 35837 --recstart '&gt;' --pipe blastp -query - -db /disks/jen/data/db/prokka_db/kingdom/Bacteria/AMR -evalue 9.99999999999999e-301 -qcov_hsp_perc 90 -num_threads 1 -num_descriptions 1 -num_alignments 1 -seg no &gt; \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/AMR\.blast 2&gt; /dev/null
+[21:50:11] Deleting unwanted file: /disks/jen/data/mres/ndebono/bin.1.prokka.out/AMR.faa
+[21:50:11] Deleting unwanted file: /disks/jen/data/mres/ndebono/bin.1.prokka.out/AMR.blast
+[21:50:11] There are still 1884 unannotated CDS left (started with 1884)
+[21:50:11] Will use blast to search against /disks/jen/data/db/prokka_db/kingdom/Bacteria/sprot with 8 CPUs
+[21:50:11] Running: cat \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/sprot\.faa | parallel --gnu --plain -j 8 --block 35837 --recstart '&gt;' --pipe blastp -query - -db /disks/jen/data/db/prokka_db/kingdom/Bacteria/sprot -evalue 1e-09 -qcov_hsp_perc 80 -num_threads 1 -num_descriptions 1 -num_alignments 1 -seg no &gt; \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/sprot\.blast 2&gt; /dev/null
+[21:50:30] Modify product: Probable 2-dehydro-3-deoxygalactonokinase DgoK1 =&gt; putative 2-dehydro-3-deoxygalactonokinase DgoK1
+[21:50:30] Modify product: Uncharacterized symporter YidK =&gt; putative symporter YidK
+[21:50:30] Modify product: Putative aminotransferase MSMEG_6286/MSMEI_6121 =&gt; Putative aminotransferase/MSMEI_6121
+[21:50:30] Modify product: UPF0701 protein YicC =&gt; hypothetical protein
+[21:50:30] Modify product: Uncharacterized protein Rv1360 =&gt; putative protein
+[21:50:30] Modify product: Probable sulfite/organosulfonate exporter TauE =&gt; putative sulfite/organosulfonate exporter TauE
+[21:50:30] Modify product: Probable tRNA-dihydrouridine synthase =&gt; putative tRNA-dihydrouridine synthase
+[21:50:30] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:30] Modify product: Uncharacterized protein Rv1367c =&gt; putative protein
+[21:50:30] Modify product: Probable enoyl-CoA hydratase echA8 =&gt; putative enoyl-CoA hydratase echA8
+[21:50:30] Modify product: Monocarboxylate 2-oxoacid-binding periplasmic protein all3028 =&gt; Monocarboxylate 2-oxoacid-binding periplasmic protein
+[21:50:30] Modify product: Probable protease SohB =&gt; putative protease SohB
+[21:50:30] Modify product: Probable peptidyl-prolyl cis-trans isomerase =&gt; putative peptidyl-prolyl cis-trans isomerase
+[21:50:30] Modify product: Putative short-chain type dehydrogenase/reductase Rv0148 =&gt; Putative short-chain type dehydrogenase/reductase
+[21:50:30] Modify product: Uncharacterized oxidoreductase Rv0769 =&gt; putative oxidoreductase
+[21:50:30] Modify product: Uncharacterized protein Rv1360 =&gt; putative protein
+[21:50:30] Modify product: Uncharacterized protein Rv1360 =&gt; putative protein
+[21:50:30] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:30] Modify product: Uncharacterized FAD-linked oxidoreductase Rv2280 =&gt; putative FAD-linked oxidoreductase
+[21:50:30] Modify product: Uncharacterized symporter YjmB =&gt; putative symporter YjmB
+[21:50:30] Modify product: Probable enoyl-CoA hydratase =&gt; putative enoyl-CoA hydratase
+[21:50:30] Modify product: Probable nicotinate-nucleotide adenylyltransferase =&gt; putative nicotinate-nucleotide adenylyltransferase
+[21:50:30] Modify product: UPF0234 protein XC_3703 =&gt; hypothetical protein
+[21:50:30] Modify product: UPF0716 protein FxsA =&gt; hypothetical protein
+[21:50:30] Modify product: Uncharacterized protein YfgD =&gt; putative protein YfgD
+[21:50:30] Modify product: Uncharacterized oxidoreductase YghA =&gt; putative oxidoreductase YghA
+[21:50:30] Modify product: Uncharacterized protein Rv1367c =&gt; putative protein
+[21:50:30] Modify product: Uncharacterized ABC transporter ATP-binding protein TM_0288 =&gt; putative ABC transporter ATP-binding protein
+[21:50:30] Modify product: UPF0178 protein YaiI =&gt; hypothetical protein
+[21:50:30] Modify product: Probable intracellular septation protein A =&gt; putative intracellular septation protein A
+[21:50:30] Modify product: Uncharacterized protein YciO =&gt; putative protein YciO
+[21:50:30] Modify product: Uncharacterized metal-dependent hydrolase YcfH =&gt; putative metal-dependent hydrolase YcfH
+[21:50:30] Modify product: Uncharacterized ABC transporter ATP-binding protein Rv0986 =&gt; putative ABC transporter ATP-binding protein
+[21:50:30] Modify product: Fanconi-associated nuclease 1 homolog =&gt; Fanconi-associated nuclease 1
+[21:50:30] Modify product: UPF0758 protein YsxA =&gt; hypothetical protein
+[21:50:30] Modify product: Uncharacterized protein Rv1367c =&gt; putative protein
+[21:50:30] Modify product: Probable L-galactonate transporter =&gt; putative L-galactonate transporter
+[21:50:30] Modify product: GTP-binding protein TypA/BipA homolog =&gt; GTP-binding protein TypA/BipA
+[21:50:30] Modify product: Uncharacterized protein YibN =&gt; putative protein YibN
+[21:50:30] Modify product: Probable Fe(2+)-trafficking protein =&gt; putative Fe(2+)-trafficking protein
+[21:50:30] Modify product: Multifunctional alkaline phosphatase superfamily protein pRL90232 =&gt; Multifunctional alkaline phosphatase superfamily protein
+[21:50:30] Modify product: Putative multidrug export ATP-binding/permease protein SA1683 =&gt; Putative multidrug export ATP-binding/permease protein
+[21:50:30] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:30] Modify product: UPF0307 protein PSPTO_4464 =&gt; hypothetical protein
+[21:50:30] Modify product: Probable xanthine dehydrogenase subunit A =&gt; putative xanthine dehydrogenase subunit A
+[21:50:30] Modify product: Uncharacterized oxidoreductase SA2266 =&gt; putative oxidoreductase
+[21:50:30] Modify product: Probable lipid II flippase MurJ =&gt; putative lipid II flippase MurJ
+[21:50:30] Modify product: UPF0301 protein YqgE =&gt; hypothetical protein
+[21:50:30] Modify product: Uncharacterized protein Rv3633 =&gt; putative protein
+[21:50:30] Modify product: Probable sulfoacetate transporter SauU =&gt; putative sulfoacetate transporter SauU
+[21:50:30] Modify product: UPF0246 protein YaaA =&gt; hypothetical protein
+[21:50:30] Modify product: Probable enoyl-CoA hydratase echA8 =&gt; putative enoyl-CoA hydratase echA8
+[21:50:30] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:30] Modify product: Uncharacterized protein Rv0953c =&gt; putative protein
+[21:50:30] Modify product: Uncharacterized protein Rv1367c =&gt; putative protein
+[21:50:30] Modify product: Uncharacterized protein Rv2913c =&gt; putative protein
+[21:50:30] Modify product: Uncharacterized protein Rv3633 =&gt; putative protein
+[21:50:30] Modify product: Probable polyketide biosynthesis zinc-dependent hydrolase BaeB =&gt; putative polyketide biosynthesis zinc-dependent hydrolase BaeB
+[21:50:30] Modify product: Probable sulfate transporter Rv1739c =&gt; putative sulfate transporter
+[21:50:30] Modify product: Probable glycine dehydrogenase (decarboxylating) subunit 2 =&gt; putative glycine dehydrogenase (decarboxylating) subunit 2
+[21:50:30] Modify product: Probable FMN/FAD exporter YeeO =&gt; putative FMN/FAD exporter YeeO
+[21:50:30] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:31] Modify product: Putative monooxygenase Rv1533 =&gt; Putative monooxygenase
+[21:50:31] Modify product: Probable L-galactonate transporter =&gt; putative L-galactonate transporter
+[21:50:31] Modify product: Uncharacterized amino acid permease YhdG =&gt; putative amino acid permease YhdG
+[21:50:31] Modify product: Probable DNA endonuclease SmrA =&gt; putative DNA endonuclease SmrA
+[21:50:31] Modify product: Uncharacterized oxidoreductase Rv1144 =&gt; putative oxidoreductase
+[21:50:31] Modify product: Probable peptidoglycan glycosyltransferase FtsW =&gt; putative peptidoglycan glycosyltransferase FtsW
+[21:50:31] Modify product: Uncharacterized protein Rv0953c =&gt; putative protein
+[21:50:31] Modify product: Putative trans-acting enoyl reductase Rv2449c =&gt; Putative trans-acting enoyl reductase
+[21:50:31] Modify product: Probable acyltransferase YihG =&gt; putative acyltransferase YihG
+[21:50:31] Modify product: Probable enoyl-CoA hydratase echA8 =&gt; putative enoyl-CoA hydratase echA8
+[21:50:31] Modify product: Uncharacterized oxidoreductase SA2266 =&gt; putative oxidoreductase
+[21:50:31] Modify product: Uncharacterized protein Rv3633 =&gt; putative protein
+[21:50:31] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:31] Modify product: Uncharacterized protein Rv1367c =&gt; putative protein
+[21:50:31] Modify product: Uncharacterized protein YisK =&gt; putative protein YisK
+[21:50:31] Modify product: Oxygen-independent coproporphyrinogen-III oxidase-like protein sll1917 =&gt; Oxygen-independent coproporphyrinogen-III oxidase-like protein
+[21:50:31] Modify product: UPF0382 membrane protein YwdK =&gt; hypothetical protein
+[21:50:31] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:31] Modify product: UPF0102 protein RPA0323 =&gt; hypothetical protein
+[21:50:31] Modify product: Probable glycine dehydrogenase (decarboxylating) subunit 1 =&gt; putative glycine dehydrogenase (decarboxylating) subunit 1
+[21:50:31] Modify product: Probable bifunctional transcriptional activator/DNA repair enzyme AlkA =&gt; putative bifunctional transcriptional activator/DNA repair enzyme AlkA
+[21:50:31] Modify product: UPF0070 protein HI_0370 =&gt; hypothetical protein
+[21:50:31] Modify product: Uncharacterized protein Rv2000 =&gt; putative protein
+[21:50:31] Modify product: Probable enoyl-CoA hydratase echA8 =&gt; putative enoyl-CoA hydratase echA8
+[21:50:31] Modify product: Uncharacterized protein Rv0953c =&gt; putative protein
+[21:50:31] Modify product: Putative acyltransferase Rv0859 =&gt; Putative acyltransferase
+[21:50:31] Modify product: Putative short-chain type dehydrogenase/reductase Rv0148 =&gt; Putative short-chain type dehydrogenase/reductase
+[21:50:31] Modify product: Putative coenzyme F420-dependent oxidoreductase Rv3520c =&gt; Putative coenzyme F420-dependent oxidoreductase
+[21:50:31] Modify product: UPF0324 inner membrane protein YeiH =&gt; hypothetical protein
+[21:50:31] Modify product: UPF0053 inner membrane protein YfjD =&gt; hypothetical protein
+[21:50:31] Modify product: Uncharacterized protein Rv1501 =&gt; putative protein
+[21:50:31] Modify product: Uncharacterized ABC transporter ATP-binding protein TM_0288 =&gt; putative ABC transporter ATP-binding protein
+[21:50:31] Modify product: F420H(2)-dependent quinone reductase Rv1558 =&gt; F420H(2)-dependent quinone reductase
+[21:50:31] Modify product: Uncharacterized protein YbbN =&gt; putative protein YbbN
+[21:50:31] Modify product: Uncharacterized ABC transporter ATP-binding protein YheS =&gt; putative ABC transporter ATP-binding protein YheS
+[21:50:31] Modify product: Uncharacterized protein Rv2913c =&gt; putative protein
+[21:50:31] Modify product: Uncharacterized protein Rv2913c =&gt; putative protein
+[21:50:31] Modify product: Probable GTP-binding protein EngB =&gt; putative GTP-binding protein EngB
+[21:50:31] Modify product: Probable enoyl-CoA hydratase 1 =&gt; putative enoyl-CoA hydratase 1
+[21:50:31] Modify product: UPF0434 protein NMA0874 =&gt; hypothetical protein
+[21:50:31] Modify product: Uncharacterized hydrolase YxeP =&gt; putative hydrolase YxeP
+[21:50:31] Cleaned 103 /product names
+[21:50:31] Deleting unwanted file: /disks/jen/data/mres/ndebono/bin.1.prokka.out/sprot.faa
+[21:50:31] Deleting unwanted file: /disks/jen/data/mres/ndebono/bin.1.prokka.out/sprot.blast
+[21:50:31] There are still 876 unannotated CDS left (started with 1884)
+[21:50:31] Will use hmmer3 to search against /disks/jen/data/db/prokka_db/hmm/HAMAP.hmm with 8 CPUs
+[21:50:31] Running: cat \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/HAMAP\.hmm\.faa | parallel --gnu --plain -j 8 --block 13716 --recstart '&gt;' --pipe hmmscan --noali --notextw --acc -E 1e-09 --cpu 1 /disks/jen/data/db/prokka_db/hmm/HAMAP.hmm /dev/stdin &gt; \/disks\/jen\/data\/mres\/ndebono\/bin\.1\.prokka\.out\/HAMAP\.hmm\.hmmer3 2&gt; /dev/null~~~
+</code></pre></div></div>
+
+<p>PROKKA will give us a lot of output files that we will find useful</p>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.log
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.fna
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.gff
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.faa
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.ffn
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.tbl
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.fsa
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.tsv
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.txt
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.sqn
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.err
+[21:50:53] /disks/jen/data/mres/ndebono/bin.1.prokka.out/PROKKA_10202018.gbk
+
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="exercise">Exercise</h2>
+
+  <p>Have a look at the contents of each file. What information does each contain?
+following questions.</p>
+
+  <p>1) How many tRNA genes were predicted in bin.1?
+2) How genes were predicted in bin.1?
+3) Is bin.1 likely from a photosynthetic porganism?
+4) Name some of the functional genes predicted in bin.1
+4) Which database did PROKKA use to assign those functional annotations?</p>
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+
+  </blockquote>
+</blockquote>
+
+<p>But how many bins do you have to annotate?</p>
+
+<p><strong>Loops</strong> are key to productivity improvements through automation as they allow us to execute
+commands repetitively. Similar to wildcards and tab completion, using loops also reduces the
+amount of typing (and typing mistakes).</p>
+
+<p>Instead, we can use a <strong>loop</strong>
+to do some operation once for each thing in a list.
+Here’s a simple example that displays the first three lines of each file in turn:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="k">for </span>i <span class="k">in</span> <span class="k">*</span>fa
+<span class="o">&gt;</span> <span class="k">do</span>
+<span class="o">&gt;</span>    <span class="nv">name</span><span class="o">=</span><span class="k">$(</span><span class="nb">basename</span> <span class="nv">$i</span> .fa<span class="k">)</span>	<span class="c"># Indentation within the loop aids legibility</span>
+<span class="o">&gt;</span>    /usr/local/anaconda2/bin/prokka <span class="nv">$i</span> <span class="nt">-o</span> <span class="nv">$name</span>.prokka.out
+<span class="o">&gt;</span> <span class="k">done</span>
+</code></pre></div></div>
+
+<p>When the shell sees the keyword <code class="highlighter-rouge">for</code>,
+it knows to repeat a command (or group of commands) once for each item in a list.
+Each time the loop runs (called an iteration), an item in the list is assigned in sequence to
+the <strong>variable</strong>, and the commands inside the loop are executed, before moving on to
+the next item in the list.
+Inside the loop,
+we call for the variable’s value by putting <code class="highlighter-rouge">$</code> in front of it.
+The <code class="highlighter-rouge">$</code> tells the shell interpreter to treat
+the <strong>variable</strong> as a variable name and substitute its value in its place,
+rather than treat it as text or an external command.</p>
+
+<h2 id="taxonomic-assignment">Taxonomic Assignment</h2>
+
+<p>-moved to week 4.</p>
+
+<h2 id="super-focus">Super-Focus:</h2>
+
+<p>A tool for agile functional analysis of metagenomic data</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Silva, G. G. Z., Green K., B. E. Dutilh, and R. A. Edwards:
+SUPER-FOCUS: A tool for agile functional analysis of shotgun metagenomic data.
+Bioinformatics. 2015 Oct 9. pii: btv584. Website: https://edwards.sdsu.edu/SUPERFOCUS
+</code></pre></div></div>
+
+<p>Installation</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/anaconda2/bin/conda create <span class="nt">-n</span> py36 <span class="nv">python</span><span class="o">=</span>3.6 anaconda
+
+/usr/local/anaconda2/bin/conda activate py36
+
+Pip <span class="nb">install</span> <span class="nt">--user</span> superfocus <span class="nt">--force</span>
+</code></pre></div></div>
+
+<p>SUPER-FOCUS is fussy about the name of the input files. To fix this problem we’ll make a copy of the contains in a new directory</p>
+
+<p>Make a copy of your bins.fa</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>bins.copy
+
+<span class="nb">cp</span> <span class="k">*</span>fa bins.copy/
+</code></pre></div></div>
+
+<p>Then replace the <code class="highlighter-rouge">.fa</code> with <code class="highlighter-rouge">.fasta</code> file extension using this script</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>bins.copy
+
+rename ’s/.fa/.fasta/‘ <span class="k">*</span>
+</code></pre></div></div>
+
+<p>Then we are ready to run SUPER-FOCUS</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>superfocus <span class="nt">-a</span> diamond <span class="nt">-q</span> ./ <span class="nt">-n</span> 1 <span class="nt">-t</span> 8 <span class="nt">-dir</span> <span class="nb">test</span> <span class="nt">-b</span> /disks/jen/scratch-ssd/db/superfocus_db/
+
+</code></pre></div></div>
+
+
+
+<blockquote class="keypoints">
+  <h2>Key Points</h2>
+  <ul>
+    
+    <li><p>Loops are very useful for repeating commands over multiple files</p>
+</li>
+    
+    <li><p>A <code class="highlighter-rouge">for</code> loop repeats commands once for every thing in a list.</p>
+</li>
+    
+    <li><p>Use <code class="highlighter-rouge">$name</code> to expand a variable (i.e., get its value). <code class="highlighter-rouge">${name}</code> can also be used.</p>
+</li>
+    
+    <li><p>Do not use spaces, quotes, or wildcard characters such as ‘*’ or ‘?’ in filenames, as it complicates variable expansion.</p>
+</li>
+    
+    <li><p>Give files consistent names that are easy to match with wildcard patterns to make it easy to select them for looping.</p>
+</li>
+    
+    <li><p>Use the up-arrow key to scroll up through previous commands to edit and repeat them.</p>
+</li>
+    
+    <li><p>Use <code class="highlighter-rouge">Ctrl-R</code> to search through the previously entered commands.</p>
+</li>
+    
+    <li><p>Use <code class="highlighter-rouge">history</code> to display recent commands, and <code class="highlighter-rouge">!number</code> to repeat a command by number.</p>
+</li>
+    
+  </ul>
+</blockquote>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xs-1">
+    <h3 class="text-left">
+      
+      <a href="../08-assembly_mapping_and%20binning/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      
+    </h3>
+  </div>
+  <div class="col-xs-10">
+    
+  </div>
+  <div class="col-xs-1">
+    <h3 class="text-right">
+      
+      <a href="../12-taxonomic-assignment/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      
+    </h3>
+  </div>
+</div>
+
+
+      
+      
+<footer>
+  <div class="row">
+    <div class="col-md-6 copyright" align="left">
+
+    </div>
+    <div class="col-md-6 help-links" align="right">
+	
+	
+	<a href="/edit/gh-pages/_episodes_rmd/09-annotation-of-genome-bins.Rmd">Edit on GitHub</a>
+	
+	
+	/
+	<a href="/blob/gh-pages/CONTRIBUTING.md">Contributing</a>
+	/
+	<a href="/">Source</a>
+	/
+	<a href="/blob/gh-pages/CITATION">Cite</a>
+	/
+	<a href="mailto:martin.ostrowski@mq.edu.au">Contact</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" align="center">
+      Using <a href="https://github.com/carpentries/styles/">The Carpentries style</a>
+      version <a href="https://github.com/carpentries/styles/releases/tag/v9.5.3">9.5.3</a>.
+    </div>
+  </div>
+</footer>
+
+      
+    </div>
+    
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/lesson.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-37305346-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </body>
+</html>
