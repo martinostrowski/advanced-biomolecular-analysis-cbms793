@@ -383,12 +383,12 @@ amount of typing (and typing mistakes).
 
 Instead, we can use a **loop**
 to do some operation once for each thing in a list.
-Here's a simple example that displays the first three lines of each file in turn:
+Here's an example that we could use to run PROKKA on each of our genome bins. *! each line has to be entered separately.*
 
 ~~~
 $ for i in *fa
 > do
->    name=$(basename $i .fa)	# Indentation within the loop aids legibility
+>    name=$(basename $i .fa)
 >    /usr/local/anaconda2/bin/prokka $i -o $name.prokka.out
 > done
 ~~~
@@ -405,6 +405,16 @@ The `$` tells the shell interpreter to treat
 the **variable** as a variable name and substitute its value in its place,
 rather than treat it as text or an external command.
 
+> ## Question
+>
+> What are the two **variables** used in the PROKKA loop?
+> 
+> 
+>> ## Solution
+>> variable 1 is **i**, the full name of the fasta file containing the binned contigs, e.g bin.1.fa
+>> variable 2 is **name**, the first part of the name after we split off the `.fa` file extension
+> {: .solution}
+{: .challenge}
 
 
 ## Taxonomic Assignment
