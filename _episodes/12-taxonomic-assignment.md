@@ -131,13 +131,32 @@ diamond blastp -q bin.10.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.
 ~~~
 {: .bash}
 
+Then check the output. What is represented in each column?
+
+~~~
+EKHPIGLK_00001  WP_040495630.1  76.9    316     73      0       9       324     95      410     1.3e-143        518.8
+EKHPIGLK_00001  BAN01327.1      75.6    316     77      0       9       324     95      410     2.5e-142        514.6
+EKHPIGLK_00001  GBL20536.1      74.4    316     81      0       9       324     94      409     1.2e-139        505.8
+EKHPIGLK_00001  PHX93058.1      74.4    316     81      0       9       324     94      409     1.5e-139        505.4
+EKHPIGLK_00001  KRO44663.1      74.1    316     82      0       9       324     82      397     5.8e-139        503.4
+EKHPIGLK_00001  KRO36171.1      75.6    315     77      0       9       323     94      408     1.7e-138        501.9
+EKHPIGLK_00001  KRO48561.1      73.7    316     83      0       9       324     61      376     4.9e-138        500.4
+EKHPIGLK_00001  KRO53220.1      73.7    316     83      0       9       324     94      409     4.9e-138        500.4
+EKHPIGLK_00001  WP_116999185.1  73.7    316     83      0       9       324     100     415     7.8e-136        493.0
+EKHPIGLK_00001  KGA09915.1      72.0    314     88      0       9       322     95      408     4.3e-134        487.3
+EKHPIGLK_00001  WP_052601171.1  68.8    317     99      0       9       325     95      411     1.1e-126        462.6
+EKHPIGLK_00001  RIK04981.1      63.1    317     116     1       9       324     95      411     2.3e-111        411.8
+EKHPIGLK_00001  OYV59647.1      60.4    316     117     3       9       322     32      341     1.3e-101        379.4
+EKHPIGLK_00001  OYV65711.1      57.4    317     130     3       9       324     95      407     3.1e-100        374.8
+~~~
+{: .output}
 
 If you have many bins it is time to start thinking about an efficient way to process them all. One approach is to create a batch file to run a diamond blastp on every bin. The batch file will utilise a loop to create the list of commands. We will save them in a file called `do-diamond.sh`
 
 ~~~
 for i in *faa; do echo "diamond blastp -q $i -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o $i.dvnr.out"; done > do-diamond.sh
 ~~~
-{: .output}
+{: .bash}
 
 
 check that the contents look sane
@@ -145,6 +164,20 @@ check that the contents look sane
 less do-diamond.sh
 ~~~
 {: .bash}
+
+~~~
+diamond blastp -q bin.10.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.10.prokka.out.faa.dvnr.out
+diamond blastp -q bin.11.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.11.prokka.out.faa.dvnr.out
+diamond blastp -q bin.12.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.12.prokka.out.faa.dvnr.out
+diamond blastp -q bin.13.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.13.prokka.out.faa.dvnr.out
+diamond blastp -q bin.14.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.14.prokka.out.faa.dvnr.out
+diamond blastp -q bin.15.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.15.prokka.out.faa.dvnr.out
+diamond blastp -q bin.16.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.16.prokka.out.faa.dvnr.out
+diamond blastp -q bin.17.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.17.prokka.out.faa.dvnr.out
+diamond blastp -q bin.18.prokka.out.faa -d /disks/jen/scratch-ssd/db/nr_oct2018.dmnd -p 10 -f 6 -o bin.18.prokka.out.faa.dvnr.out
+~~~
+{: .output}
+
 
 suggest running one of these commands to make sure everything executes correctly
 
@@ -156,42 +189,49 @@ chmod a+x do-diamond.sh
 ~~~
 {: .bash}
 
-#then run the batch, and wait
+then run the batch, and wait
 
 ~~~
 ./do-diamond.sh
 ~~~
 {: .bash}
 
-Next we'll extract taxonomic associations from the accession numbers of the diamond blastp output using BASTA
+Next we'll extract taxonomic associations from the accession numbers of the diamond blastp output using BASTA. You will need to ensure that you are in the right directory and edit the input and output names to match your files.
 
 ~~~
-basta sequence -b BEST_HIT -d /disks/jen/scratch-ssd/db/.basta/taxonomy/ ju.bin14.dvnr.out ju.bin14.basta.out prot
-~~~
-{: .bash}
-
-
-Have a look at the results using bash tools
-
-~~~
-
-
+basta sequence -b BEST_HIT -d /disks/jen/scratch-ssd/db/.basta/taxonomy/ ***.bin14.dvnr.out ***.bin14.basta.out prot
 ~~~
 {: .bash}
 
 
+Have a look at the results using bash tools. Here are some examples
+
 ~~~
+less ***.bin14.basta.out
+~~~
+{: .bash}
 
 
+~~~
+EKHPIGLK_00014  Unknown Bacteria;Actinobacteria;Acidimicrobiia;Acidimicrobiales;Ilumatobacteraceae;Ilumatobacter;Ilumatobacter_coccineus;
+EKHPIGLK_00023  Unknown Bacteria;Actinobacteria;Acidimicrobiia;Acidimicrobiales;Ilumatobacteraceae;Ilumatobacter;Ilumatobacter_nonamiensis;
+EKHPIGLK_00043  Bacteria;Actinobacteria;Acidimicrobiia;Acidimicrobiales;        Bacteria;Actinobacteria;Acidimicrobiia;Acidimicrobiales;Ilumatobacteraceae;Desertimonas;Desertimonas_flava;
+EKHPIGLK_00076  Bacteria;       Bacteria;Candidatus_Tectomicrobia;unknown;unknown;unknown;Candidatus_Entotheonella;Candidatus_Entotheonella_palauensis;
+EKHPIGLK_00085  Bacteria;Actinobacteria;        Bacteria;Actinobacteria;Acidimicrobiia;unknown;unknown;unknown;Acidimicrobiia_bacterium_BACL6_MAG-120924-bin43;
+EKHPIGLK_00095  Unknown Bacteria;Actinobacteria;Acidimicrobiia;Acidimicrobiales;Ilumatobacteraceae;Ilumatobacter;Ilumatobacter_coccineus;
+EKHPIGLK_00100  Unknown Archaea;Euryarchaeota;unknown;unknown;unknown;unknown;Euryarchaeota_archaeon;
 ~~~
 {: .output}
 
+What is the output in each column?
 
 then send the results to krona plot
 
 ~~~
-cat ju.bin14.basta.out | cut -f 1,3 > ju.bin14.basta.bh.out
-
+cat ***.bin14.basta.out | cut -f 1,3 > ***.bin14.basta.bh.out
+~~~
+{: .bash}
+~~~
 /usr/local/anaconda2/bin/basta2krona.py ju.bin14.basta.bh.out krona.test.html
 ~~~
 {: .bash}
