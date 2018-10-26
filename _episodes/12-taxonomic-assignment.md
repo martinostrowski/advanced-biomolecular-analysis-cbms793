@@ -192,7 +192,7 @@ then send the results to krona plot
 ~~~
 cat ju.bin14.basta.out | cut -f 1,3 > ju.bin14.basta.bh.out
 
-/usr/local/anaconda2/bin/basta2krona.py  krona.test.html
+/usr/local/anaconda2/bin/basta2krona.py ju.bin14.basta.bh.out krona.test.html
 ~~~
 {: .bash}
 
@@ -204,7 +204,7 @@ cat ju.bin14.basta.out | cut -f 1,3 > ju.bin14.basta.bh.out
 > > for i in *.prokka.out.basta.out;
 > > do
 > > name=$(basename $i .prokka.out.basta.out)
-> > echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out
+> > echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out"
 > > done > do-bastatrim.sh
 > {: .solution}
 {: .challenge}
