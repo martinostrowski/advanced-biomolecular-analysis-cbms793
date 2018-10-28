@@ -13,7 +13,7 @@ how to write new episodes.
 
 ## Maintainer(s)
 
-* FIXME
+Martin Ostrowski
 
 ## Authors
 
@@ -24,3 +24,7 @@ A list of contributors to the lesson can be found in [AUTHORS](AUTHORS)
 To cite this lesson, please consult with [CITATION](CITATION)
 
 [lesson-example]: https://carpentries.github.io/lesson-example
+
+## Development
+
+The episodes in this lesson will be revised to streamline the content for 2019. 
