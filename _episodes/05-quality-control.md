@@ -189,18 +189,7 @@ Here, we see positions within the read in which the boxes span a much wider rang
 ## Running FastQC
 
 
-~~~
-$ mv ~/.dc_sampledata_lite/untrimmed_fastq/ ~/dc_workshop/data/
-~~~
-{: .bash}
-
 Navigate to your FASTQ dataset:
-
-~~~
-$ cd
-~~~
-{: .bash}
-
 
 ~~~
 $ fastqc *.fq
@@ -345,48 +334,6 @@ $ open *.html
 ~~~
 {: .bash}
 
-Your computer will open each of the HTML files in your default web
-browser. Depending on how many fq files you analysed, this might be as a number of separate
-tabs in a single window.
-
-> ## Exercise
->
-> Discuss your results with a neighbor. Which sample(s) looks the best
-> in terms of per base sequence quality? Which sample(s) look the
-> worst?
->
->> ## Solution
->>
-> {: .solution}
-{: .challenge}
-
-
-
-The `.html` files and the uncompressed `.zip` files are still present,
-but now we also have a new directory for each of our samples. We can
-see for sure that it's a directory if we use the `-F` flag for `ls`.
-
-~~~
-$ ls -F
-~~~
-{: .bash}
-
-~~~
-SRR097977_fastqc/      SRR098027_fastqc/      SRR098281_fastqc/
-SRR097977_fastqc.html  SRR098027_fastqc.html  SRR098281_fastqc.html
-SRR097977_fastqc.zip   SRR098027_fastqc.zip   SRR098281_fastqc.zip
-SRR098026_fastqc/      SRR098028_fastqc/      SRR098283_fastqc/
-SRR098026_fastqc.html  SRR098028_fastqc.html  SRR098283_fastqc.html
-SRR098026_fastqc.zip   SRR098028_fastqc.zip   SRR098283_fastqc.zip
-~~~
-{: .output}
-
-Let's see what files are present within one of these output directories.
-
-~~~
-$ ls -F SRR097977_fastqc/
-~~~
-{: .bash}
 
 ~~~
 fastqc_data.txt  fastqc.fo  fastqc_report.html	Icons/	Images/  summary.txt
