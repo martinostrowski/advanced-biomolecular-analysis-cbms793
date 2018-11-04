@@ -244,7 +244,7 @@ cat bin14.basta.out | cut -f 1,3 > bin14.basta.bh.out
 > > for i in *.prokka.out.basta.out;
 > > do
 > > name=$(basename $i .prokka.out.basta.out)
-> > echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out""
+> > echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out"
 > > done > do-bastatrim.sh
 > {: .solution}
 {: .challenge}
@@ -255,13 +255,16 @@ cat bin14.basta.out | cut -f 1,3 > bin14.basta.bh.out
 for i in *.prokka.out.basta.out;
 do
 name=$(basename $i .prokka.out.basta.out)
-echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out
+echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out"
 done > do-bastatrim.sh
 ~~~
 {: .bash}
 
 ~~~
-/usr/local/anaconda2/bin/basta2krona.py nd.bin10.basta.bh.out,nd.bin12.basta.bh.out,nd.bin.bin.11.basta.bh.out,nd.bin.bin.13.basta.bh.out,nd.bin.bin.15.basta.bh.out,nd.bin.bin.1.basta.bh.out,nd.bin.bin.3.basta.bh.out,nd.bin11.basta.bh.out,nd.bin.bin.10.basta.bh.out,nd.bin.bin.12.basta.bh.out,nd.bin.bin.14.basta.bh.out,nd.bin.bin.16.basta.bh.out,nd.bin.bin.2.basta.bh.out,nd.bin.bin.4.basta.bh.out  krona.test.html
+/usr/local/anaconda2/bin/basta2krona.py bin10.basta.bh.out,bin12.basta.bh.out,bin.11.basta.bh.out,
+bin.13.basta.bh.out,bin.15.basta.bh.out,bin.1.basta.bh.out,bin.3.basta.bh.out,nd.bin11.basta.bh.out,
+bin.10.basta.bh.out,bin.12.basta.bh.out,bin.14.basta.bh.out,bin.16.basta.bh.out,bin.2.basta.bh.out,
+bin.4.basta.bh.out  krona.test.html
 ~~~
 {: .bash}
 
