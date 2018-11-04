@@ -199,7 +199,7 @@ then run the batch, and wait
 Next we'll extract taxonomic associations from the accession numbers of the diamond blastp output using BASTA. You will need to ensure that you are in the right directory and edit the input and output names to match your files.
 
 ~~~
-basta sequence -b BEST_HIT -d /disks/jen/scratch-ssd/db/.basta/taxonomy/ ***.bin14.dvnr.out ***.bin14.basta.out prot
+basta sequence -b BEST_HIT -d /disks/jen/scratch-ssd/db/.basta/taxonomy/ bin14.dvnr.out bin14.basta.out prot
 ~~~
 {: .bash}
 
@@ -207,7 +207,7 @@ basta sequence -b BEST_HIT -d /disks/jen/scratch-ssd/db/.basta/taxonomy/ ***.bin
 Have a look at the results using bash tools. Here are some examples
 
 ~~~
-less ***.bin14.basta.out
+less bin14.basta.out
 ~~~
 {: .bash}
 
@@ -228,11 +228,11 @@ What is the output in each column?
 then send the results to krona plot
 
 ~~~
-cat ***.bin14.basta.out | cut -f 1,3 > ***.bin14.basta.bh.out
+cat bin14.basta.out | cut -f 1,3 > bin14.basta.bh.out
 ~~~
 {: .bash}
 ~~~
-/usr/local/anaconda2/bin/basta2krona.py ju.bin14.basta.bh.out krona.test.html
+/usr/local/anaconda2/bin/basta2krona.py bin14.basta.bh.out krona.test.html
 ~~~
 {: .bash}
 
@@ -244,7 +244,7 @@ cat ***.bin14.basta.out | cut -f 1,3 > ***.bin14.basta.bh.out
 > > for i in *.prokka.out.basta.out;
 > > do
 > > name=$(basename $i .prokka.out.basta.out)
-> > echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out"
+> > echo "cat $i | cut -f 1,3 > nd.bin.$name.basta.bh.out""
 > > done > do-bastatrim.sh
 > {: .solution}
 {: .challenge}
